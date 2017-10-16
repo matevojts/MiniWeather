@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
                     ButterKnife.bind(MainActivity.this);
                     cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
 
+                    Forecast forecast = new Forecast();
+
+                    mRecyclerView = (RecyclerView) findViewById(R.id.list);
+                    mLayoutManager = new LinearLayoutManager(MainActivity.this);
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+                    mAdapter = new ForeCastDayAdapter(forecast);
+                    mRecyclerView.setAdapter(mAdapter);
 
                 }
             }
@@ -60,11 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        //mAdapter = new ForeCastDayAdapter(myDataset);
-        //mRecyclerView.setAdapter(mAdapter);
+
 
 
     }
