@@ -1,19 +1,14 @@
 package com.example.android.miniweather;
 
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Network.WeatherService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,9 +18,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @BindView(R.id.city_country_text_view) TextView cityCountryTextView;
 
@@ -34,28 +29,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final String apiKey = "a648c3fd154342f1b3190352171310";
-        int numberOfDaysRequested = 10;
+        final String APIKEY = "a648c3fd154342f1b3190352171310";
+        final int NUMBERSOFDAYSREQUESTED = 10;
 
+        recyclerView = (RecyclerView) findViewById(R.id.list);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
         WeatherService weatherService = new WeatherService();
 
-        weatherService.getService().getWeather(apiKey, "London", numberOfDaysRequested).enqueue(new Callback<CityWeather>() {
+        weatherService.getService().getWeather(APIKEY, "London", NUMBERSOFDAYSREQUESTED).enqueue(new Callback<CityWeather>() {
             @Override
             public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
                 if (response.isSuccessful()) {
                     CityWeather cityWeather = response.body();
-                    Log.i("Location", cityWeather.getLocation().getCountry());
-                    Log.i("Sunrise1", cityWeather.getForecast().getForecastday().get(1).getAstro().getSunrise());
+
                     ButterKnife.bind(MainActivity.this);
+
                     cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
 
-                    Forecast forecast = new Forecast();
-
-                    mRecyclerView = (RecyclerView) findViewById(R.id.list);
-                    mLayoutManager = new LinearLayoutManager(MainActivity.this);
-                    mRecyclerView.setLayoutManager(mLayoutManager);
-                    mAdapter = new ForeCastDayAdapter(forecast);
-                    mRecyclerView.setAdapter(mAdapter);
+                    Forecast forecast = cityWeather.getForecast();
+                    adapter = new ForeCastDayAdapter(forecast.getForecastday());
+                    recyclerView.setAdapter(adapter);
 
                 }
             }

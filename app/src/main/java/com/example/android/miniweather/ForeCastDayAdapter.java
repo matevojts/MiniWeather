@@ -1,12 +1,14 @@
 package com.example.android.miniweather;
 
-import android.provider.ContactsContract;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.squareup.picasso.Picasso;
+import java.util.List;
 
 /**
  * Created by matev on 2017. 10. 13..
@@ -14,93 +16,56 @@ import android.widget.TextView;
 
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
-    private Forecast forecasts;
+    private List<Forecastday> forecasts;
+    private Context actualContext;
 
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-
-        //TODO: egybe a textview deklaralas
-
-        public ImageView weatherConditionImageView;
-        public TextView dateTextView;
-        public TextView sunRiseTextView;
-        public TextView maxTempTextView;
-        public TextView sunSetTextView;
-        public TextView minTempTextView;
-
-        public ViewHolder(View view) {
-            super(view);
-            dateTextView = view.findViewById(R.id.date_text_view);
-            sunRiseTextView = view.findViewById(R.id.sunrise_text_view);
-        }
-
-    }
-
-    public ForeCastDayAdapter(Forecast forecasts) {
+    public ForeCastDayAdapter(List<Forecastday> forecasts) {
         this.forecasts = forecasts;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listItemView = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-
-            ViewHolder viewHolder = new ViewHolder(listItemView);
-
-        return viewHolder;
+        actualContext = parent.getContext();
+        View listItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new ViewHolder(listItemView);
     }
+
+
+//TODO: picasso nem megy (szerintem a context a para), temp formazast a day osztalyba metoduskent
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Forecastday actualForecastday = forecasts.getForecastday().get(position);
+        Forecastday actualForecastday = forecasts.get(position);
         holder.dateTextView.setText(actualForecastday.getDate());
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
+        holder.maxTempTextView.setText(Double.toString(actualForecastday.getDay().getMaxtempC()) + " \u2103");
+        holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
+        holder.minTempTextView.setText(Double.toString(actualForecastday.getDay().getMintempC()) + " \u2103");
+        Picasso.with(actualContext).load(actualForecastday.getDay().getCondition().getIcon().substring(2)).into(holder.weatherConditionImageView);
     }
 
     @Override
     public int getItemCount() {
-
-        return 10;
-        //return forecasts.getForecastday().size();
+        return forecasts.size();
     }
 
-    /*
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
+        public ImageView weatherConditionImageView;
+        public TextView dateTextView, sunRiseTextView, maxTempTextView, sunSetTextView, minTempTextView;
 
-    // Create new views (invoked by the layout manager)
-    @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-        ...
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        public ViewHolder(View view) {
+            super(view);
+            dateTextView = view.findViewById(R.id.date_text_view);
+            sunRiseTextView = view.findViewById(R.id.sunrise_text_view);
+            maxTempTextView = view.findViewById(R.id.maxtemp_text_view);
+            sunSetTextView = view.findViewById(R.id.sunset_text_view);
+            minTempTextView = view.findViewById(R.id.mintemp_text_view);
+            weatherConditionImageView = view.findViewById(R.id.weather_condition_image_view);
+        }
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
-    }
-*/
+
 
 }
