@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MiniWeather</string>
-    <string name="city">Város</string>
-    <string name="search">Keresés</string>
+    <string name="city">City</string>
+    <string name="search">Search</string>
 </resources>

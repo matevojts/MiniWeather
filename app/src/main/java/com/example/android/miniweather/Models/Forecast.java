@@ -1,4 +1,4 @@
-package com.example.android.miniweather;
+package com.example.android.miniweather.Models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

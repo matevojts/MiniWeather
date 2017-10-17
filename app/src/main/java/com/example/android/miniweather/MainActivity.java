@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.miniweather.Models.CityWeather;
+import com.example.android.miniweather.Models.Forecast;
 import com.example.android.miniweather.Network.WeatherService;
 
 import butterknife.BindView;
@@ -21,13 +26,32 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private String cityName;
 
-    @BindView(R.id.city_country_text_view) TextView cityCountryTextView;
+    @BindView(R.id.city_country_text_view)
+    TextView cityCountryTextView;
+    @BindView(R.id.city_edit_text)
+    EditText cityEditText;
+    @BindView(R.id.city_search_button)
+    Button citySearchButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(MainActivity.this);
+
+        citySearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cityName = cityEditText.getText().toString();
+            }
+        });
+
+
 
         final String APIKEY = "a648c3fd154342f1b3190352171310";
         final int NUMBERSOFDAYSREQUESTED = 10;
@@ -37,13 +61,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         WeatherService weatherService = new WeatherService();
 
-        weatherService.getService().getWeather(APIKEY, "London", NUMBERSOFDAYSREQUESTED).enqueue(new Callback<CityWeather>() {
+        weatherService.getService().getWeather(APIKEY, "Budapest", NUMBERSOFDAYSREQUESTED).enqueue(new Callback<CityWeather>() {
             @Override
             public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
                 if (response.isSuccessful()) {
                     CityWeather cityWeather = response.body();
-
-                    ButterKnife.bind(MainActivity.this);
 
                     cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
 

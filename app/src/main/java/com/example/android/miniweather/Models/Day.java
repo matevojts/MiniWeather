@@ -1,4 +1,4 @@
-package com.example.android.miniweather;
+package com.example.android.miniweather.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -23,7 +23,6 @@ public class Day {
         this.maxtempC = maxtempC;
     }
 
-
     public Double getMintempC() {
         return mintempC;
     }
@@ -38,6 +37,14 @@ public class Day {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public String getMintempString(){
+        return Double.toString(mintempC) + " \u2103";
+    }
+
+    public String getMaxtempString(){
+        return Double.toString(maxtempC) + " \u2103";
     }
 
 }
