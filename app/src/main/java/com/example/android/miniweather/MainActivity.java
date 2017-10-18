@@ -45,44 +45,47 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(MainActivity.this);
 
-        citySearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cityName = cityEditText.getText().toString();
-            }
-        });
-
-
-
         final String APIKEY = "a648c3fd154342f1b3190352171310";
-        final int NUMBERSOFDAYSREQUESTED = 10;
+        final int NUMBERS_OF_DAYS_REQUESTED = 10;
 
         recyclerView = (RecyclerView) findViewById(R.id.list);
         layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        WeatherService weatherService = new WeatherService();
+        final WeatherService weatherService = new WeatherService();
 
-        weatherService.getService().getWeather(APIKEY, "Budapest", NUMBERSOFDAYSREQUESTED).enqueue(new Callback<CityWeather>() {
+        citySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
-                if (response.isSuccessful()) {
-                    CityWeather cityWeather = response.body();
+            public void onClick(View view) {
+                cityName = cityEditText.getText().toString();
 
-                    cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
+                weatherService.getService().getWeather(APIKEY, cityName, NUMBERS_OF_DAYS_REQUESTED).enqueue(new Callback<CityWeather>() {
+                    @Override
+                    public void onResponse(Call<CityWeather> call, Response<CityWeather> response) {
+                        if (response.isSuccessful()) {
+                            CityWeather cityWeather = response.body();
 
-                    Forecast forecast = cityWeather.getForecast();
-                    adapter = new ForeCastDayAdapter(forecast.getForecastday());
-                    recyclerView.setAdapter(adapter);
+                            cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
 
-                }
-            }
+                            Forecast forecast = cityWeather.getForecast();
+                            adapter = new ForeCastDayAdapter(forecast.getForecastday());
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<CityWeather> call, Throwable t) {
-                Log.e("Apicall failed.", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onFailure(Call<CityWeather> call, Throwable t) {
+                        Log.e("Apicall failed.", t.getMessage());
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
             }
         });
+
+
+
 
 
 
