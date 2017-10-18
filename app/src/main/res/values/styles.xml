@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ValueTextView">
+        <item name="android:textSize">@dimen/value_font_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

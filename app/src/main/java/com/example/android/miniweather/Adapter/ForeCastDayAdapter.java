@@ -1,4 +1,4 @@
-package com.example.android.miniweather;
+package com.example.android.miniweather.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.miniweather.Models.Forecastday;
+import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 

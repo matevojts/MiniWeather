@@ -6,48 +6,9 @@
     android:orientation="vertical"
     tools:context="com.example.android.miniweather.MainActivity">
 
-    <LinearLayout
+    <fragment android:name="com.example.android.miniweather.View.WeatherViewFragment"
+        android:id="@+id/wather_view_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp">
-
-        <EditText
-            android:id="@+id/city_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/city"
-            android:inputType="textCapWords"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/city_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:textAllCaps="true"/>
-
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/city_country_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        />
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        >
-
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

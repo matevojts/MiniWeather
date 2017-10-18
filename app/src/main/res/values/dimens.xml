@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="list_item_height">120dp</dimen>
+    <dimen name="value_font_size">24sp</dimen>
+    <dimen name="sun_image_view_width">30dp</dimen>
+    <dimen name="list_item_distance">16dp</dimen>
+
+</resources>

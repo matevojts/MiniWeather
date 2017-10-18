@@ -10,11 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
 import com.example.android.miniweather.Models.CityWeather;
 import com.example.android.miniweather.Models.Forecast;
 import com.example.android.miniweather.Network.WeatherService;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -40,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.weather_view_fragment); // csak itt valtoztattam meg a kodot az xml-en kivul a fragmenthez
+
+
 
         ButterKnife.bind(MainActivity.this);
 
