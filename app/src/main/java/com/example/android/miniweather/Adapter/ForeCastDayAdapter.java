@@ -12,9 +12,6 @@ import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by matev on 2017. 10. 13..
  */
@@ -38,10 +35,10 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
         Forecastday actualForecastday = forecasts.get(position);
         holder.dateTextView.setText(actualForecastday.getDate());
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
-        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempString());
+        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempText());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
-        holder.minTempTextView.setText(actualForecastday.getDay().getMintempString());
-        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).into(holder.weatherConditionImageView);
+        holder.minTempTextView.setText(actualForecastday.getDay().getMintempText());
+        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).fit().centerCrop().into(holder.weatherConditionImageView);
     }
 
     @Override
@@ -49,18 +46,13 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
         return forecasts.size();
     }
 
-    //TODO: ez lehetne butterknife, nem ment utana kell nezni
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        //@BindView(R.id.weather_condition_image_view) ImageView weatherConditionImageView;
 
         public ImageView weatherConditionImageView;
         public TextView dateTextView, sunRiseTextView, maxTempTextView, sunSetTextView, minTempTextView;
 
         public ViewHolder(View view) {
             super(view);
-            //ButterKnife.bind(view)
             dateTextView = view.findViewById(R.id.date_text_view);
             sunRiseTextView = view.findViewById(R.id.sunrise_text_view);
             maxTempTextView = view.findViewById(R.id.maxtemp_text_view);

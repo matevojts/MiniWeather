@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Condition {
 
+    final String HTTP_PREFIX = "http:";
+
     @SerializedName("icon")
     @Expose
     private String icon;
@@ -18,7 +20,7 @@ public class Condition {
     }
 
     public String getIconURL() {
-        return "http:" + icon;
+        return HTTP_PREFIX + icon;
     }
 
 }

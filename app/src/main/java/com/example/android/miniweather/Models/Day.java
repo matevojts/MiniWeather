@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Day {
 
+    final String CELSIUS_SIGN = " \u2103";
+
     @SerializedName("maxtemp_c")
     @Expose
     private Double maxtempC;
@@ -39,12 +41,12 @@ public class Day {
         this.condition = condition;
     }
 
-    public String getMintempString(){
-        return Double.toString(mintempC) + " \u2103";
+    public String getMintempText(){
+        return Double.toString(mintempC) + CELSIUS_SIGN;
     }
 
-    public String getMaxtempString(){
-        return Double.toString(maxtempC) + " \u2103";
+    public String getMaxtempText(){
+        return Double.toString(maxtempC) + CELSIUS_SIGN;
     }
 
 }
