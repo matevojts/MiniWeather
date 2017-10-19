@@ -4,4 +4,6 @@
     <string name="city">City</string>
     <string name="search">Search</string>
     <string name="api_call_failure_message">API call failed!</string>
+    <string name="min_label">Min:</string>
+    <string name="max_label">Max:</string>
 </resources>

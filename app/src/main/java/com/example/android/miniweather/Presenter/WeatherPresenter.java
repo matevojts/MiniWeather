@@ -8,10 +8,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by matev on 2017. 10. 18..
- */
-
 public class WeatherPresenter {
 
     final String APIKEY = "a648c3fd154342f1b3190352171310";
@@ -42,5 +38,4 @@ public class WeatherPresenter {
 
         });
     }
-
 }

@@ -23,5 +23,3 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 }
-
-//TODO: http://api.apixu.com/v1/forecast.json?key=a648c3fd154342f1b3190352171310&q=London&days=10

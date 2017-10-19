@@ -23,11 +23,6 @@ import com.example.android.miniweather.R;
 
 import retrofit2.Response;
 
-
-/**
- * Created by matev on 2017. 10. 18..
- */
-
 public class WeatherViewFragment extends Fragment implements WeatherViewContract{
 
     TextView cityCountryTextView;

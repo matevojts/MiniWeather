@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Condition {
 
-    final String HTTP_PREFIX = "http:";
+    private final String HTTP_PREFIX = "http:";
 
     @SerializedName("icon")
     @Expose

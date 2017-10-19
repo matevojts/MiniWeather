@@ -12,10 +12,6 @@ import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-/**
- * Created by matev on 2017. 10. 13..
- */
-
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
     private List<Forecastday> forecasts;
@@ -35,10 +31,10 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
         Forecastday actualForecastday = forecasts.get(position);
         holder.dateTextView.setText(actualForecastday.getDate());
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
-        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempText());
+        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
-        holder.minTempTextView.setText(actualForecastday.getDay().getMintempText());
-        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).fit().centerCrop().into(holder.weatherConditionImageView);
+        holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
+        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).placeholder(R.drawable.ic_image_grey600_48dp).fit().centerCrop().into(holder.weatherConditionImageView);
     }
 
     @Override
@@ -60,9 +56,5 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
             minTempTextView = view.findViewById(R.id.mintemp_text_view);
             weatherConditionImageView = view.findViewById(R.id.weather_condition_image_view);
         }
-
     }
-
-
-
 }

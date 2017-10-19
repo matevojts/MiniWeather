@@ -6,10 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-/**
- * Created by matev on 2017. 10. 13..
- */
-
 public interface WeatherApi {
 
     @GET("v1/forecast.json")
