@@ -28,13 +28,28 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        // 0 for celsius, 1 for fahrenheit. variable created for test
+        int temperatureScaleId = 1;
         Forecastday actualForecastday = forecasts.get(position);
         holder.dateTextView.setText(actualForecastday.getDate());
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
-        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
-        holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
-        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).placeholder(R.drawable.ic_image_grey600_48dp).fit().centerCrop().into(holder.weatherConditionImageView);
+
+        if (temperatureScaleId == 0) {
+            holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
+            holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
+        } else {
+            holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempFahrenheitText());
+            holder.minTempTextView.setText(actualForecastday.getDay().getMintempFahrenheitText());
+        }
+
+        Picasso.with(holder.weatherConditionImageView.getContext())
+                .load(actualForecastday.getDay().getCondition()
+                .getIconURL())
+                .placeholder(R.drawable.ic_image_grey600_48dp)
+                .fit()
+                .centerCrop()
+                .into(holder.weatherConditionImageView);
     }
 
     @Override
