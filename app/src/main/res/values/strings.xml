@@ -6,4 +6,13 @@
     <string name="api_call_failure_message">API call failed!</string>
     <string name="min_label">Min:</string>
     <string name="max_label">Max:</string>
+    <string name="settings_menu_title">Settings</string>
+    <string name="settings_temperature_unit_label">Temperature Unit</string>
+    <string name="settings_temperature_unit_key" translatable="false">temperature_unit</string>
+    <string name="settings_temperature_celsius_value" translatable="false">celsius</string>
+    <string name="settings_temperature_fahrenheit_value" translatable="false">fahrenheit</string>
+    <string name="settings_temperature_unit_default" translatable="false">@string/settings_temperature_celsius_value</string>
+    <string name="settings_temperature_celsius_label">Celsius</string>
+    <string name="settings_temperature_fahrenheit_label">Fahrenheit</string>
+
 </resources>
