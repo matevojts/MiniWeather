@@ -1,10 +1,8 @@
 package com.example.android.miniweather.View;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,15 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
+import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
 import com.example.android.miniweather.Models.Forecast;
+import com.example.android.miniweather.Models.TemperatureUnit;
+import com.example.android.miniweather.Presenter.SettingsDataPresenter;
+import com.example.android.miniweather.Presenter.SettingsPresenter;
 import com.example.android.miniweather.Presenter.WeatherPresenter;
 import com.example.android.miniweather.Presenter.WeatherViewContract;
 import com.example.android.miniweather.R;
 
 import retrofit2.Response;
 
-public class WeatherViewFragment extends Fragment implements WeatherViewContract{
+public class WeatherViewFragment extends Fragment implements WeatherViewContract, SettingsDataPresenter{
 
     TextView cityCountryTextView;
     EditText cityEditText;
@@ -40,6 +42,9 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    //TODO: DISASTER!!! (but works till tomorrow)
+    public static TemperatureUnit temperatureUnit;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +52,12 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         init();
         return view;
     }
+
+    /*@Override
+    public void onResume() {
+        adapter.notifyDataSetChanged();
+        super.onResume();
+    }*/
 
     private void init(){
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -61,6 +72,9 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         setHasOptionsMenu(true);
 
         final WeatherPresenter presenter = new WeatherPresenter(this);
+
+        final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment());
+        settingsPresenter.saveTemperatureUnitToModel(getActivity());
 
         forecast = new Forecast();
 
@@ -83,11 +97,19 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public void show(Response<CityWeather> response) {
         CityWeather cityWeather = response.body();
-        cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
+        cityCountryTextView.setText(cityWeather.getLocation().getName()
+                + " - "
+                + cityWeather.getLocation().getCountry());
 
         forecast = cityWeather.getForecast();
-                            adapter = new ForeCastDayAdapter(forecast.getForecastday());
-                            recyclerView.setAdapter(adapter);
+
+        //TODO: remove check
+        if (temperatureUnit != null) {
+            adapter = new ForeCastDayAdapter(forecast.getForecastday(), temperatureUnit);
+        } else {
+            Toast.makeText(getActivity(), "Tempunit = null", Toast.LENGTH_SHORT).show();
+        }
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -104,12 +126,15 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
-            //TODO: exchange toast with logic
-            Toast.makeText(getActivity().getApplicationContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+            NavigationManager.moveToScreen(getFragmentManager(), new SettingsFragment());
             return true;
         } else {
             return false;
         }
     }
 
+    @Override
+    public void showCurrentTemperatureUnit(TemperatureUnit temperatureUnit) {
+        this.temperatureUnit = temperatureUnit;
+    }
 }

@@ -1,13 +1,18 @@
 package com.example.android.miniweather.Adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.miniweather.Models.Forecastday;
+import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
 import java.util.List;
@@ -15,27 +20,33 @@ import java.util.List;
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
     private List<Forecastday> forecasts;
+    private Context context;
+    TemperatureUnit temperatureUnit;
 
-    public ForeCastDayAdapter(List<Forecastday> forecasts) {
+    public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnit) {
         this.forecasts = forecasts;
+        this.temperatureUnit = temperatureUnit;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        context = parent.getContext();
+        View listItemView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
         return new ViewHolder(listItemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // 0 for celsius, 1 for fahrenheit. variable created for test
-        int temperatureScaleId = 1;
         Forecastday actualForecastday = forecasts.get(position);
         holder.dateTextView.setText(actualForecastday.getDate());
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
 
-        if (temperatureScaleId == 0) {
+
+        /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String currentTemperatureUnit = sharedPreferences.getString(context.getString(R.string.settings_temperature_unit_key), "celsius");*/
+
+        if (temperatureUnit.isCelsius()) {
             holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
             holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
         } else {
