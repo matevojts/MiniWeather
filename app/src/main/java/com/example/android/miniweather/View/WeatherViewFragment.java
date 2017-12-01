@@ -21,7 +21,6 @@ import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
 import com.example.android.miniweather.Models.Forecast;
 import com.example.android.miniweather.Models.TemperatureUnit;
-import com.example.android.miniweather.Presenter.SettingsDataPresenter;
 import com.example.android.miniweather.Presenter.SettingsPresenter;
 import com.example.android.miniweather.Presenter.WeatherPresenter;
 import com.example.android.miniweather.Presenter.WeatherViewContract;
@@ -29,21 +28,18 @@ import com.example.android.miniweather.R;
 
 import retrofit2.Response;
 
-public class WeatherViewFragment extends Fragment implements WeatherViewContract, SettingsDataPresenter{
+public class WeatherViewFragment extends Fragment implements WeatherViewContract{
 
     TextView cityCountryTextView;
     EditText cityEditText;
     Button citySearchButton;
     View view;
     String cityName;
-
     Forecast forecast = null;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    //TODO: DISASTER!!! (but works till tomorrow)
-    public static TemperatureUnit temperatureUnit;
+    private TemperatureUnit temperatureUnitModel;
 
     @Nullable
     @Override
@@ -52,12 +48,6 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         init();
         return view;
     }
-
-    /*@Override
-    public void onResume() {
-        adapter.notifyDataSetChanged();
-        super.onResume();
-    }*/
 
     private void init(){
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -72,8 +62,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         setHasOptionsMenu(true);
 
         final WeatherPresenter presenter = new WeatherPresenter(this);
-
-        final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment());
+        final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment(), this);
         settingsPresenter.saveTemperatureUnitToModel(getActivity());
 
         forecast = new Forecast();
@@ -103,11 +92,8 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
 
         forecast = cityWeather.getForecast();
 
-        //TODO: remove check
-        if (temperatureUnit != null) {
-            adapter = new ForeCastDayAdapter(forecast.getForecastday(), temperatureUnit);
-        } else {
-            Toast.makeText(getActivity(), "Tempunit = null", Toast.LENGTH_SHORT).show();
+        if (temperatureUnitModel != null) {
+            adapter = new ForeCastDayAdapter(forecast.getForecastday(), temperatureUnitModel);
         }
         recyclerView.setAdapter(adapter);
     }
@@ -115,6 +101,11 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public void error() {
         Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.api_call_failure_message), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void saveCurrentTemperature(TemperatureUnit temperatureUnitModel) {
+        this.temperatureUnitModel = temperatureUnitModel;
     }
 
     @Override
@@ -131,10 +122,5 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         } else {
             return false;
         }
-    }
-
-    @Override
-    public void showCurrentTemperatureUnit(TemperatureUnit temperatureUnit) {
-        this.temperatureUnit = temperatureUnit;
     }
 }

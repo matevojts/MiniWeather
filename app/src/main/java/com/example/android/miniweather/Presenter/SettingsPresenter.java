@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.R;
 import com.example.android.miniweather.View.SettingsFragment;
+import com.example.android.miniweather.View.WeatherViewFragment;
 
 /**
  * Created by matev on 2017. 11. 30..
@@ -14,9 +15,12 @@ import com.example.android.miniweather.View.SettingsFragment;
 public class SettingsPresenter {
 
     SettingsDataPresenter settingsDataPresenter;
+    WeatherViewContract weatherViewContract;
 
-    public SettingsPresenter(SettingsFragment settingsFragment) {
+    public SettingsPresenter(SettingsFragment settingsFragment, WeatherViewFragment weatherViewFragment) {
         this.settingsDataPresenter = settingsFragment;
+        this.weatherViewContract = weatherViewFragment;
+
     }
 
     public void saveTemperatureUnitToModel(Context context){
@@ -27,6 +31,7 @@ public class SettingsPresenter {
             temperatureUnit.setTemperatureUnitToCelsius(false);
         }
         settingsDataPresenter.showCurrentTemperatureUnit(temperatureUnit);
+        weatherViewContract.saveCurrentTemperature(temperatureUnit);
     }
 
     public String getCurrentTemperatureUnit(Context context) {

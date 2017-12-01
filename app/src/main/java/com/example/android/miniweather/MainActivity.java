@@ -12,11 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-      /*  SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String defaultUnit = sharedPreferences.getString(getResources().getString(R.string.settings_temperature_unit_key), "celsius");
-        Toast.makeText(this, defaultUnit, Toast.LENGTH_LONG).show();*/
-
         displayFragment();
     }
 

@@ -9,6 +9,7 @@
         android:entries="@array/settings_temperature_unit_labels"
         android:entryValues="@array/settings_temperature_unit_values"
         android:key="@string/settings_temperature_unit_key"
-        android:title="@string/settings_temperature_unit_label" />
+        android:title="@string/settings_temperature_unit_label"
+        android:summary="%s"/>
 
 </PreferenceScreen>

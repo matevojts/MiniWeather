@@ -1,31 +1,29 @@
 package com.example.android.miniweather.Adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.miniweather.Models.Forecastday;
 import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
     private List<Forecastday> forecasts;
     private Context context;
-    TemperatureUnit temperatureUnit;
+    TemperatureUnit temperatureUnitModel;
 
-    public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnit) {
+    public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnitModel) {
         this.forecasts = forecasts;
-        this.temperatureUnit = temperatureUnit;
+        this.temperatureUnitModel = temperatureUnitModel;
     }
 
     @Override
@@ -42,11 +40,7 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
 
-
-        /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String currentTemperatureUnit = sharedPreferences.getString(context.getString(R.string.settings_temperature_unit_key), "celsius");*/
-
-        if (temperatureUnit.isCelsius()) {
+        if (temperatureUnitModel.isCelsius()) {
             holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
             holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
         } else {
