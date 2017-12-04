@@ -12,4 +12,11 @@
         android:title="@string/settings_temperature_unit_label"
         android:summary="%s"/>
 
+    <EditTextPreference
+        android:key="@string/settings_favourite_city_key"
+        android:title="@string/settings_favourite_city_label"
+        android:inputType="textCapWords"
+        android:defaultValue="@string/settings_favourite_city_default"
+        />
+
 </PreferenceScreen>

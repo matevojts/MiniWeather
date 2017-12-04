@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
 import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
+import com.example.android.miniweather.Models.FavouriteCityModel;
 import com.example.android.miniweather.Models.Forecast;
 import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.Presenter.SettingsPresenter;
@@ -33,6 +35,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     TextView cityCountryTextView;
     EditText cityEditText;
     Button citySearchButton;
+    ImageButton favouriteButton;
     View view;
     String cityName;
     Forecast forecast = null;
@@ -40,6 +43,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private TemperatureUnit temperatureUnitModel;
+    private FavouriteCityModel favouriteCityModel;
 
     @Nullable
     @Override
@@ -58,12 +62,14 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         cityCountryTextView = view.findViewById(R.id.city_country_text_view);
         cityEditText = view.findViewById(R.id.city_edit_text);
         citySearchButton = view.findViewById(R.id.city_search_button);
+        favouriteButton = view.findViewById(R.id.favourite_button);
 
         setHasOptionsMenu(true);
 
         final WeatherPresenter presenter = new WeatherPresenter(this);
         final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment(), this);
         settingsPresenter.saveTemperatureUnitToModel(getActivity());
+        settingsPresenter.saveFavouriteCityModel(getActivity());
 
         forecast = new Forecast();
 
@@ -78,6 +84,20 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
 
                 cityName = cityEditText.getText().toString();
                 presenter.getWeatherData(cityName);
+                cityEditText.setText("");
+            }
+        });
+
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (forecast.getForecastday() != null){
+                    forecast.getForecastday().clear();
+                    adapter.notifyDataSetChanged();
+                    cityCountryTextView.setText("");
+                }
+                presenter.getWeatherData(favouriteCityModel.getFavouriteCity());
+                cityEditText.setText("");
             }
         });
 
@@ -106,6 +126,11 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public void saveCurrentTemperature(TemperatureUnit temperatureUnitModel) {
         this.temperatureUnitModel = temperatureUnitModel;
+    }
+
+    @Override
+    public void saveCurrentFavouriteCity(FavouriteCityModel favouriteCityModel) {
+        this.favouriteCityModel = favouriteCityModel;
     }
 
     @Override

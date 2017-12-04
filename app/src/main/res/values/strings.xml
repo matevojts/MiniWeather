@@ -14,5 +14,8 @@
     <string name="settings_temperature_unit_default" translatable="false">@string/settings_temperature_celsius_value</string>
     <string name="settings_temperature_celsius_label">Celsius (℃)</string>
     <string name="settings_temperature_fahrenheit_label">Fahrenheit (℉)</string>
+    <string name="settings_favourite_city_label">Favourite City</string>
+    <string name="settings_favourite_city_key" translatable="false">favourite_city</string>
+    <string name="settings_favourite_city_default">Budapest</string>
 
 </resources>
