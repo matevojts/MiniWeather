@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
+import com.example.android.miniweather.Manager.KeyboardManager;
 import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
 import com.example.android.miniweather.Models.FavouriteCityModel;
@@ -76,15 +77,19 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         citySearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (forecast.getForecastday() != null){
-                    forecast.getForecastday().clear();
-                    adapter.notifyDataSetChanged();
-                    cityCountryTextView.setText("");
-                }
-
                 cityName = cityEditText.getText().toString();
-                presenter.getWeatherData(cityName);
-                cityEditText.setText("");
+
+                if (!cityName.matches("")) {
+                    if (forecast.getForecastday() != null){
+                        forecast.getForecastday().clear();
+                        adapter.notifyDataSetChanged();
+                        cityCountryTextView.setText("");
+                    }
+
+                    KeyboardManager.hideKeyboard(view, getActivity());
+                    presenter.getWeatherData(cityName);
+                    cityEditText.setText("");
+                }
             }
         });
 
@@ -96,6 +101,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                     adapter.notifyDataSetChanged();
                     cityCountryTextView.setText("");
                 }
+                KeyboardManager.hideKeyboard(view, getActivity());
                 presenter.getWeatherData(favouriteCityModel.getFavouriteCity());
                 cityEditText.setText("");
             }

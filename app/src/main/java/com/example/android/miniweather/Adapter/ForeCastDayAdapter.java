@@ -13,13 +13,17 @@ import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
     private List<Forecastday> forecasts;
     private Context context;
-    TemperatureUnit temperatureUnitModel;
+    private TemperatureUnit temperatureUnitModel;
 
     public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnitModel) {
         this.forecasts = forecasts;
@@ -36,7 +40,15 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Forecastday actualForecastday = forecasts.get(position);
-        holder.dateTextView.setText(actualForecastday.getDate());
+
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(actualForecastday.getDate());
+            String dateWithDay = new SimpleDateFormat("EEEE, yyyy-MM-dd", Locale.US).format(date);
+            holder.dateTextView.setText(dateWithDay);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
 
