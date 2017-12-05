@@ -17,4 +17,9 @@ public class NavigationManager {
                 .commit();
     }
 
+    public static void moveToFirstScreen (FragmentManager fragmentManager, Fragment fragment) {
+        fragmentManager.beginTransaction()
+                .replace(android.R.id.content, fragment)
+                .commit();
+    }
 }

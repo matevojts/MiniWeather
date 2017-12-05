@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayFragment(){
-        NavigationManager.moveToScreen(getFragmentManager(), new WeatherViewFragment());
+        NavigationManager.moveToFirstScreen(getFragmentManager(), new WeatherViewFragment());
     }
 }
