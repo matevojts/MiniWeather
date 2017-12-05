@@ -1,5 +1,6 @@
 package com.example.android.miniweather.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,33 +9,64 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.miniweather.Models.Forecastday;
+import com.example.android.miniweather.Models.TemperatureUnit;
 import com.example.android.miniweather.R;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder> {
 
     private List<Forecastday> forecasts;
+    private Context context;
+    private TemperatureUnit temperatureUnitModel;
 
-    public ForeCastDayAdapter(List<Forecastday> forecasts) {
+    public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnitModel) {
         this.forecasts = forecasts;
+        this.temperatureUnitModel = temperatureUnitModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        context = parent.getContext();
+        View listItemView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
         return new ViewHolder(listItemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Forecastday actualForecastday = forecasts.get(position);
-        holder.dateTextView.setText(actualForecastday.getDate());
+
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(actualForecastday.getDate());
+            String dateWithDay = new SimpleDateFormat("EEEE, yyyy-MM-dd", Locale.US).format(date);
+            holder.dateTextView.setText(dateWithDay);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         holder.sunRiseTextView.setText(actualForecastday.getAstro().getSunrise());
-        holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
         holder.sunSetTextView.setText(actualForecastday.getAstro().getSunset());
-        holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
-        Picasso.with(holder.weatherConditionImageView.getContext()).load(actualForecastday.getDay().getCondition().getIconURL()).placeholder(R.drawable.ic_image_grey600_48dp).fit().centerCrop().into(holder.weatherConditionImageView);
+
+        if (temperatureUnitModel.isCelsius()) {
+            holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempCelsiusText());
+            holder.minTempTextView.setText(actualForecastday.getDay().getMintempCelsiusText());
+        } else {
+            holder.maxTempTextView.setText(actualForecastday.getDay().getMaxtempFahrenheitText());
+            holder.minTempTextView.setText(actualForecastday.getDay().getMintempFahrenheitText());
+        }
+
+        Picasso.with(holder.weatherConditionImageView.getContext())
+                .load(actualForecastday.getDay().getCondition()
+                .getIconURL())
+                .placeholder(R.drawable.ic_image_grey600_48dp)
+                .fit()
+                .centerCrop()
+                .into(holder.weatherConditionImageView);
     }
 
     @Override

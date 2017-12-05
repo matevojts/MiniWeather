@@ -3,20 +3,28 @@ package com.example.android.miniweather.View;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
+import com.example.android.miniweather.Manager.KeyboardManager;
+import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
+import com.example.android.miniweather.Models.FavouriteCityModel;
 import com.example.android.miniweather.Models.Forecast;
+import com.example.android.miniweather.Models.TemperatureUnit;
+import com.example.android.miniweather.Presenter.SettingsPresenter;
 import com.example.android.miniweather.Presenter.WeatherPresenter;
 import com.example.android.miniweather.Presenter.WeatherViewContract;
 import com.example.android.miniweather.R;
@@ -28,13 +36,15 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     TextView cityCountryTextView;
     EditText cityEditText;
     Button citySearchButton;
+    ImageButton favouriteButton;
     View view;
     String cityName;
-
     Forecast forecast = null;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TemperatureUnit temperatureUnitModel;
+    private FavouriteCityModel favouriteCityModel;
 
     @Nullable
     @Override
@@ -53,12 +63,37 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         cityCountryTextView = view.findViewById(R.id.city_country_text_view);
         cityEditText = view.findViewById(R.id.city_edit_text);
         citySearchButton = view.findViewById(R.id.city_search_button);
+        favouriteButton = view.findViewById(R.id.favourite_button);
+
+        setHasOptionsMenu(true);
 
         final WeatherPresenter presenter = new WeatherPresenter(this);
+        final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment(), this);
+        settingsPresenter.saveTemperatureUnitToModel(getActivity());
+        settingsPresenter.saveFavouriteCityModel(getActivity());
 
         forecast = new Forecast();
 
         citySearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cityName = cityEditText.getText().toString();
+
+                if (!cityName.matches("")) {
+                    if (forecast.getForecastday() != null){
+                        forecast.getForecastday().clear();
+                        adapter.notifyDataSetChanged();
+                        cityCountryTextView.setText("");
+                    }
+
+                    KeyboardManager.hideKeyboard(view, getActivity());
+                    presenter.getWeatherData(cityName);
+                    cityEditText.setText("");
+                }
+            }
+        });
+
+        favouriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (forecast.getForecastday() != null){
@@ -66,9 +101,9 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                     adapter.notifyDataSetChanged();
                     cityCountryTextView.setText("");
                 }
-
-                cityName = cityEditText.getText().toString();
-                presenter.getWeatherData(cityName);
+                KeyboardManager.hideKeyboard(view, getActivity());
+                presenter.getWeatherData(favouriteCityModel.getFavouriteCity());
+                cityEditText.setText("");
             }
         });
 
@@ -77,11 +112,16 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public void show(Response<CityWeather> response) {
         CityWeather cityWeather = response.body();
-        cityCountryTextView.setText(cityWeather.getLocation().getName() + " - " + cityWeather.getLocation().getCountry());
+        cityCountryTextView.setText(cityWeather.getLocation().getName()
+                + " - "
+                + cityWeather.getLocation().getCountry());
 
         forecast = cityWeather.getForecast();
-                            adapter = new ForeCastDayAdapter(forecast.getForecastday());
-                            recyclerView.setAdapter(adapter);
+
+        if (temperatureUnitModel != null) {
+            adapter = new ForeCastDayAdapter(forecast.getForecastday(), temperatureUnitModel);
+        }
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -89,5 +129,29 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.api_call_failure_message), Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void saveCurrentTemperature(TemperatureUnit temperatureUnitModel) {
+        this.temperatureUnitModel = temperatureUnitModel;
+    }
 
+    @Override
+    public void saveCurrentFavouriteCity(FavouriteCityModel favouriteCityModel) {
+        this.favouriteCityModel = favouriteCityModel;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            NavigationManager.moveToScreen(getFragmentManager(), new SettingsFragment());
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

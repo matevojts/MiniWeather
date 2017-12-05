@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_menu_title">
+
+    <ListPreference
+        android:defaultValue="@string/settings_temperature_unit_default"
+        android:entries="@array/settings_temperature_unit_labels"
+        android:entryValues="@array/settings_temperature_unit_values"
+        android:key="@string/settings_temperature_unit_key"
+        android:title="@string/settings_temperature_unit_label"
+        android:summary="%s"/>
+
+    <EditTextPreference
+        android:key="@string/settings_favourite_city_key"
+        android:title="@string/settings_favourite_city_label"
+        android:inputType="textCapWords"
+        android:defaultValue="@string/settings_favourite_city_default"
+        />
+
+</PreferenceScreen>

@@ -6,9 +6,10 @@
     android:orientation="vertical"
     tools:context="com.example.android.miniweather.MainActivity">
 
-    <fragment android:name="com.example.android.miniweather.View.WeatherViewFragment"
+    <FrameLayout android:name="com.example.android.miniweather.View.WeatherViewFragment"
         android:id="@+id/weather_view_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>
