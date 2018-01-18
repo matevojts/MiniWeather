@@ -7,7 +7,8 @@
     <dimen name="list_item_distance">16dp</dimen>
     <dimen name="basic_zero_dp">0dp</dimen>
     <dimen name="default_padding">6dp</dimen>
-    <dimen name="weather_condition_image_padding">12dp</dimen>
+    <dimen name="weather_condition_image_padding">16dp</dimen>
     <dimen name="list_item_elevation">4dp</dimen>
+    <dimen name="recyclerview_side_padding">0dp</dimen>
 
 </resources>
