@@ -41,7 +41,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     String cityName;
     Forecast forecast = null;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ForeCastDayAdapter foreCastDayAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private TemperatureUnit temperatureUnitModel;
     private FavouriteCityModel favouriteCityModel;
@@ -82,7 +82,6 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                 if (!cityName.matches("")) {
                     if (forecast.getForecastday() != null){
                         forecast.getForecastday().clear();
-                        adapter.notifyDataSetChanged();
                         cityCountryTextView.setText("");
                     }
 
@@ -98,7 +97,6 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
             public void onClick(View view) {
                 if (forecast.getForecastday() != null){
                     forecast.getForecastday().clear();
-                    adapter.notifyDataSetChanged();
                     cityCountryTextView.setText("");
                 }
                 KeyboardUtils.hideKeyboard(view, getActivity());
@@ -118,10 +116,19 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
 
         forecast = cityWeather.getForecast();
 
-        if (temperatureUnitModel != null) {
-            adapter = new ForeCastDayAdapter(forecast.getForecastday(), temperatureUnitModel);
+        if (foreCastDayAdapter == null) {
+            foreCastDayAdapter = new ForeCastDayAdapter();
         }
-        recyclerView.setAdapter(adapter);
+
+        if (temperatureUnitModel != null && forecast != null) {
+            foreCastDayAdapter.setForecasts(forecast.getForecastday());
+            foreCastDayAdapter.setTemperatureUnitModel(temperatureUnitModel);
+
+            if (recyclerView.getAdapter() == null) {
+                recyclerView.setAdapter(foreCastDayAdapter);
+            }
+            foreCastDayAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

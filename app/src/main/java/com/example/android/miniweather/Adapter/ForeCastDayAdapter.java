@@ -25,8 +25,19 @@ public class ForeCastDayAdapter extends RecyclerView.Adapter<ForeCastDayAdapter.
     private Context context;
     private TemperatureUnit temperatureUnitModel;
 
+    public ForeCastDayAdapter() {
+    }
+
     public ForeCastDayAdapter(List<Forecastday> forecasts, TemperatureUnit temperatureUnitModel) {
         this.forecasts = forecasts;
+        this.temperatureUnitModel = temperatureUnitModel;
+    }
+
+    public void setForecasts(List<Forecastday> forecasts) {
+        this.forecasts = forecasts;
+    }
+
+    public void setTemperatureUnitModel(TemperatureUnit temperatureUnitModel) {
         this.temperatureUnitModel = temperatureUnitModel;
     }
 
