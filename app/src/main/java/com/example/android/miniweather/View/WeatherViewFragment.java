@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter;
-import com.example.android.miniweather.Manager.KeyboardManager;
 import com.example.android.miniweather.Manager.NavigationManager;
 import com.example.android.miniweather.Models.CityWeather;
 import com.example.android.miniweather.Models.FavouriteCityModel;
@@ -28,6 +27,7 @@ import com.example.android.miniweather.Presenter.SettingsPresenter;
 import com.example.android.miniweather.Presenter.WeatherPresenter;
 import com.example.android.miniweather.Presenter.WeatherViewContract;
 import com.example.android.miniweather.R;
+import com.example.android.miniweather.Utils.KeyboardUtils;
 
 import retrofit2.Response;
 
@@ -86,7 +86,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                         cityCountryTextView.setText("");
                     }
 
-                    KeyboardManager.hideKeyboard(view, getActivity());
+                    KeyboardUtils.hideKeyboard(view, getActivity());
                     presenter.getWeatherData(cityName);
                     cityEditText.setText("");
                 }
@@ -101,7 +101,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                     adapter.notifyDataSetChanged();
                     cityCountryTextView.setText("");
                 }
-                KeyboardManager.hideKeyboard(view, getActivity());
+                KeyboardUtils.hideKeyboard(view, getActivity());
                 presenter.getWeatherData(favouriteCityModel.getFavouriteCity());
                 cityEditText.setText("");
             }
