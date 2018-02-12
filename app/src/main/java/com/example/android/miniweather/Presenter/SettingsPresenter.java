@@ -15,11 +15,9 @@ import com.example.android.miniweather.View.WeatherViewFragment;
 
 public class SettingsPresenter {
 
-    SettingsDataPresenter settingsDataPresenter;
-    WeatherViewContract weatherViewContract;
+    private WeatherViewContract weatherViewContract;
 
-    public SettingsPresenter(SettingsFragment settingsFragment, WeatherViewFragment weatherViewFragment) {
-        this.settingsDataPresenter = settingsFragment;
+    public SettingsPresenter(WeatherViewFragment weatherViewFragment) {
         this.weatherViewContract = weatherViewFragment;
 
     }
@@ -32,11 +30,10 @@ public class SettingsPresenter {
         } else {
             temperatureUnit.setTemperatureUnitToCelsius(false);
         }
-        settingsDataPresenter.showCurrentTemperatureUnit(temperatureUnit);
         weatherViewContract.saveCurrentTemperature(temperatureUnit);
     }
 
-    public String getCurrentTemperatureUnit(Context context) {
+    private String getCurrentTemperatureUnit(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.settings_temperature_unit_key),
@@ -49,7 +46,7 @@ public class SettingsPresenter {
         weatherViewContract.saveCurrentFavouriteCity(favouriteCityModel);
     }
 
-    public String getCurrentFavouriteCity(Context context) {
+    private String getCurrentFavouriteCity(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.settings_favourite_city_key),

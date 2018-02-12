@@ -17,5 +17,6 @@
     <string name="settings_favourite_city_label">Favourite City</string>
     <string name="settings_favourite_city_key" translatable="false">favourite_city</string>
     <string name="settings_favourite_city_default">Budapest</string>
+    <string name="city_country">%1$s - %2$s</string>
 
 </resources>

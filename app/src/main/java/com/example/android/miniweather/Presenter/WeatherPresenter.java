@@ -10,10 +10,10 @@ import retrofit2.Response;
 
 public class WeatherPresenter {
 
-    final String APIKEY = "a648c3fd154342f1b3190352171310";
-    final int NUMBERS_OF_DAYS_REQUESTED = 10;
+    private final String APIKEY = "a648c3fd154342f1b3190352171310";
+    private final int NUMBERS_OF_DAYS_REQUESTED = 10;
 
-    WeatherViewContract viewContract;
+    private WeatherViewContract viewContract;
 
     public WeatherPresenter(WeatherViewFragment weatherViewFragment) {
         this.viewContract = weatherViewFragment;

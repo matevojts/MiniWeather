@@ -68,7 +68,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
         setHasOptionsMenu(true);
 
         final WeatherPresenter presenter = new WeatherPresenter(this);
-        final SettingsPresenter settingsPresenter = new SettingsPresenter(new SettingsFragment(), this);
+        final SettingsPresenter settingsPresenter = new SettingsPresenter(this);
         settingsPresenter.saveTemperatureUnitToModel(getActivity());
         settingsPresenter.saveFavouriteCityModel(getActivity());
 
@@ -110,9 +110,10 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
     @Override
     public void show(Response<CityWeather> response) {
         CityWeather cityWeather = response.body();
-        cityCountryTextView.setText(cityWeather.getLocation().getName()
-                + " - "
-                + cityWeather.getLocation().getCountry());
+
+        cityCountryTextView.setText(getString(R.string.city_country,
+                cityWeather.getLocation().getName(),
+                cityWeather.getLocation().getCountry()));
 
         forecast = cityWeather.getForecast();
 

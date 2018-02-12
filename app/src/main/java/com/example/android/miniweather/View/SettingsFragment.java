@@ -7,9 +7,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import com.example.android.miniweather.Models.FavouriteCityModel;
-import com.example.android.miniweather.Models.TemperatureUnit;
-import com.example.android.miniweather.Presenter.SettingsDataPresenter;
 import com.example.android.miniweather.R;
 
 /**
@@ -17,9 +14,7 @@ import com.example.android.miniweather.R;
  */
 
 public class SettingsFragment extends PreferenceFragment
-        implements SettingsDataPresenter, Preference.OnPreferenceChangeListener {
-
-    FavouriteCityModel favouriteCityModel;
+        implements Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,11 +27,6 @@ public class SettingsFragment extends PreferenceFragment
                 PreferenceManager.getDefaultSharedPreferences(favouriteCity.getContext());
         favouriteCity.setOnPreferenceChangeListener(this);
         onPreferenceChange(favouriteCity, sharedPreferences.getString(favouriteCity.getKey(), ""));
-
-    }
-
-    @Override
-    public void showCurrentTemperatureUnit(TemperatureUnit temperatureUnit) {
 
     }
 
