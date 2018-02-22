@@ -85,7 +85,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                         cityCountryTextView.setText("");
                     }
 
-                    KeyboardUtils.INSTANCE.hideKeyboard(view, getActivity());
+                    KeyboardUtils.hideKeyboard(view, getActivity());
                     presenter.getWeatherData(cityName);
                     cityEditText.setText("");
                 }
@@ -99,7 +99,7 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
                     forecast.getForecastday().clear();
                     cityCountryTextView.setText("");
                 }
-                KeyboardUtils.INSTANCE.hideKeyboard(view, getActivity());
+                KeyboardUtils.hideKeyboard(view, getActivity());
                 presenter.getWeatherData(favouriteCityModel.getFavouriteCity());
                 cityEditText.setText("");
             }
