@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.example.android.miniweather.Models.Forecastday
 import com.example.android.miniweather.Models.TemperatureUnit
 import com.example.android.miniweather.R
 import com.squareup.picasso.Picasso
-
+import kotlinx.android.synthetic.main.list_item.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>() {
 
@@ -76,20 +74,11 @@ class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var weatherConditionImageView: ImageView
-        var dateTextView: TextView
-        var sunRiseTextView: TextView
-        var maxTempTextView: TextView
-        var sunSetTextView: TextView
-        var minTempTextView: TextView
-
-        init {
-            dateTextView = view.findViewById(R.id.date_text_view)
-            sunRiseTextView = view.findViewById(R.id.sunrise_text_view)
-            maxTempTextView = view.findViewById(R.id.maxtemp_text_view)
-            sunSetTextView = view.findViewById(R.id.sunset_text_view)
-            minTempTextView = view.findViewById(R.id.mintemp_text_view)
-            weatherConditionImageView = view.findViewById(R.id.weather_condition_image_view)
-        }
+        val weatherConditionImageView: ImageView = view.weather_condition_image_view
+        val dateTextView: TextView = view.date_text_view
+        val sunRiseTextView: TextView = view.sunrise_text_view
+        val maxTempTextView: TextView = view.maxtemp_text_view
+        val sunSetTextView: TextView = view.sunset_text_view
+        val minTempTextView: TextView = view.mintemp_text_view
     }
 }
