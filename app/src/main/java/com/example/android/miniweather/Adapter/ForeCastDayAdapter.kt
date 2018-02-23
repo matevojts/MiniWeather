@@ -43,11 +43,15 @@ class ForeCastDayAdapter(val forecasts: List<Forecastday>,
         holder.sunSetTextView.text = actualForecastday.astro.sunset
 
         if (temperatureUnitModel.isCelsius) {
-            holder.maxTempTextView.text = actualForecastday.day.maxtempCelsiusText
-            holder.minTempTextView.text = actualForecastday.day.mintempCelsiusText
+            holder.maxTempTextView.text =
+                    context.getString(R.string.temperature_in_celsius, actualForecastday.day.maxtempC)
+            holder.minTempTextView.text =
+                    context.getString(R.string.temperature_in_celsius, actualForecastday.day.mintempC)
         } else {
-            holder.maxTempTextView.text = actualForecastday.day.maxtempFahrenheitText
-            holder.minTempTextView.text = actualForecastday.day.mintempFahrenheitText
+            holder.maxTempTextView.text =
+                    context.getString(R.string.temperature_in_fahrenheit, actualForecastday.day.maxtempF)
+            holder.minTempTextView.text =
+                    context.getString(R.string.temperature_in_fahrenheit, actualForecastday.day.mintempF)
         }
 
         Picasso.with(holder.weatherConditionImageView.context)

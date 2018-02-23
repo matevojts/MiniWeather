@@ -18,5 +18,7 @@
     <string name="settings_favourite_city_key" translatable="false">favourite_city</string>
     <string name="settings_favourite_city_default">Budapest</string>
     <string name="city_country">%1$s - %2$s</string>
+    <string name="temperature_in_celsius">%1$.1f ℃</string>
+    <string name="temperature_in_fahrenheit">%1$.1f ℉</string>
 
 </resources>
