@@ -16,29 +16,20 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>() {
+//TODO ez így jól van tördelve?
+class ForeCastDayAdapter(val forecasts: List<Forecastday>,
+                         val context: Context,
+                         val temperatureUnitModel: TemperatureUnit)
+    : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>() {
 
-    private var forecasts: List<Forecastday>? = null
-    private var context: Context? = null
-    private var temperatureUnitModel: TemperatureUnit? = null
-
-
-    fun setForecasts(forecasts: List<Forecastday>) {
-        this.forecasts = forecasts
-    }
-
-    fun setTemperatureUnitModel(temperatureUnitModel: TemperatureUnit) {
-        this.temperatureUnitModel = temperatureUnitModel
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
         val listItemView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
         return ViewHolder(listItemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val actualForecastday = forecasts!![position]
+        val actualForecastday = forecasts[position]
 
         try {
             val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(actualForecastday.date)
@@ -51,7 +42,7 @@ class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>()
         holder.sunRiseTextView.text = actualForecastday.astro.sunrise
         holder.sunSetTextView.text = actualForecastday.astro.sunset
 
-        if (temperatureUnitModel!!.isCelsius) {
+        if (temperatureUnitModel.isCelsius) {
             holder.maxTempTextView.text = actualForecastday.day.maxtempCelsiusText
             holder.minTempTextView.text = actualForecastday.day.mintempCelsiusText
         } else {
@@ -69,7 +60,7 @@ class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>()
     }
 
     override fun getItemCount(): Int {
-        return forecasts!!.size
+        return forecasts.size
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
