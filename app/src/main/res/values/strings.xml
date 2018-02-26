@@ -20,5 +20,6 @@
     <string name="city_country">%1$s - %2$s</string>
     <string name="temperature_in_celsius">%1$.1f ℃</string>
     <string name="temperature_in_fahrenheit">%1$.1f ℉</string>
+    <string name="city_edittext_empty_message">Please add a city!</string>
 
 </resources>

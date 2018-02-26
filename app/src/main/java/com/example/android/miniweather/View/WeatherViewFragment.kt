@@ -67,6 +67,10 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
                 KeyboardUtils.hideKeyboard(view, activity)
                 weatherPresenter.getWeatherData(cityName)
                 cityEditText.setText("")
+            } else {
+                Toast.makeText(activity.applicationContext,
+                        resources.getString(R.string.city_edittext_empty_message),
+                        Toast.LENGTH_LONG).show()
             }
         }
 
