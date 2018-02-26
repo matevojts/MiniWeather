@@ -119,17 +119,13 @@ public class WeatherViewFragment extends Fragment implements WeatherViewContract
 
         // TODO: check after kotlin refactor, it's only temporary solution now (multiple adapter instantiation)
 
-        if (temperatureUnitModel != null && forecast != null) {
-            foreCastDayAdapter = new ForeCastDayAdapter(
-                    forecast.getForecastday(),
-                    getActivity().getApplicationContext(),
-                    temperatureUnitModel);
+        foreCastDayAdapter = new ForeCastDayAdapter(
+                forecast.getForecastday(),
+                getActivity().getApplicationContext(),
+                temperatureUnitModel);
+        recyclerView.setAdapter(foreCastDayAdapter);
+        foreCastDayAdapter.notifyDataSetChanged();
 
-            if (recyclerView.getAdapter() == null) {
-                recyclerView.setAdapter(foreCastDayAdapter);
-            }
-            foreCastDayAdapter.notifyDataSetChanged();
-        }
     }
 
     @Override
