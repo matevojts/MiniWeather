@@ -10,7 +10,6 @@ import com.example.android.miniweather.Adapter.ForeCastDayAdapter
 import com.example.android.miniweather.Manager.NavigationManager
 import com.example.android.miniweather.Models.CityWeather
 import com.example.android.miniweather.Models.FavouriteCityModel
-import com.example.android.miniweather.Models.Forecast
 import com.example.android.miniweather.Models.TemperatureUnit
 import com.example.android.miniweather.Presenter.SettingsPresenter
 import com.example.android.miniweather.Presenter.WeatherPresenter
@@ -27,13 +26,12 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
     private lateinit var citySearchButton: Button
     private lateinit var favouriteButton: ImageButton
     internal lateinit var view: View
-    private lateinit var cityName: String
-    private var forecast: Forecast? = null
     private lateinit var recyclerView: RecyclerView
     private var foreCastDayAdapter: ForeCastDayAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var temperatureUnitModel: TemperatureUnit? = null
     private var favouriteCityModel: FavouriteCityModel? = null
+    private var cityWeather: CityWeather? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater.inflate(R.layout.weather_view_fragment, container, false)
@@ -59,17 +57,13 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
         settingsPresenter.saveTemperatureUnitToModel(activity)
         settingsPresenter.saveFavouriteCityModel(activity)
 
-        forecast = Forecast()
 
         citySearchButton.setOnClickListener { view ->
-            cityName = cityEditText.text.toString()
+            val cityName = cityEditText.text.toString()
 
             if (!cityName.matches("".toRegex())) {
-                if (forecast!!.forecastday != null) {
-                    forecast!!.forecastday.clear()
-                    cityCountryTextView.text = ""
-                }
 
+                cityCountryTextView.text = ""
                 KeyboardUtils.hideKeyboard(view, activity)
                 weatherPresenter.getWeatherData(cityName)
                 cityEditText.setText("")
@@ -77,10 +71,8 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
         }
 
         favouriteButton.setOnClickListener { view ->
-            if (forecast!!.forecastday != null) {
-                forecast!!.forecastday.clear()
-                cityCountryTextView.text = ""
-            }
+
+            cityCountryTextView.text = ""
             KeyboardUtils.hideKeyboard(view, activity)
             weatherPresenter.getWeatherData(favouriteCityModel!!.favouriteCity)
             cityEditText.setText("")
@@ -89,18 +81,16 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
     }
 
     override fun show(response: Response<CityWeather>) {
-        val cityWeather = response.body()
+        cityWeather = response.body()
 
         cityCountryTextView.text = getString(R.string.city_country,
                 cityWeather!!.location.name,
-                cityWeather.location.country)
-
-        forecast = cityWeather.forecast
+                cityWeather!!.location.country)
 
         // TODO: check after kotlin refactor, it's only temporary solution now (multiple adapter instantiation)
 
         foreCastDayAdapter = ForeCastDayAdapter(
-                forecast!!.forecastday,
+                cityWeather!!.forecast.forecastday,
                 activity.applicationContext,
                 temperatureUnitModel!!)
         recyclerView.adapter = foreCastDayAdapter
