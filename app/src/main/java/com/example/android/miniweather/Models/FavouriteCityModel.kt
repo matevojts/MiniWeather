@@ -5,4 +5,4 @@ package com.example.android.miniweather.Models
  */
 
 //TODO should it be nullable?
-class FavouriteCityModel(var favouriteCity: String)
+data class FavouriteCityModel(var favouriteCity: String)
