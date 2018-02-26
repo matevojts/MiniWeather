@@ -4,18 +4,8 @@ import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
-
+import android.view.*
+import android.widget.*
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter
 import com.example.android.miniweather.Manager.NavigationManager
 import com.example.android.miniweather.Models.CityWeather
@@ -27,17 +17,17 @@ import com.example.android.miniweather.Presenter.WeatherPresenter
 import com.example.android.miniweather.Presenter.WeatherViewContract
 import com.example.android.miniweather.R
 import com.example.android.miniweather.Utils.KeyboardUtils
-
+import kotlinx.android.synthetic.main.weather_view_fragment.view.*
 import retrofit2.Response
 
 class WeatherViewFragment : Fragment(), WeatherViewContract {
 
-    internal var cityCountryTextView: TextView
-    internal var cityEditText: EditText
-    internal var citySearchButton: Button
-    internal var favouriteButton: ImageButton
-    internal var view: View
-    internal var cityName: String
+    internal lateinit var cityCountryTextView: TextView
+    internal lateinit var cityEditText: EditText
+    internal lateinit var citySearchButton: Button
+    internal lateinit var favouriteButton: ImageButton
+    internal lateinit var view: View
+    internal lateinit var cityName: String
     internal var forecast: Forecast? = null
     private var recyclerView: RecyclerView? = null
     private var foreCastDayAdapter: ForeCastDayAdapter? = null
@@ -53,14 +43,14 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
 
     private fun init() {
         layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        recyclerView = view.findViewById(R.id.recycleview)
+        recyclerView = view.recycleview
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.layoutManager = layoutManager
 
-        cityCountryTextView = view.findViewById(R.id.city_country_text_view)
-        cityEditText = view.findViewById(R.id.city_edit_text)
-        citySearchButton = view.findViewById(R.id.city_search_button)
-        favouriteButton = view.findViewById(R.id.favourite_button)
+        cityCountryTextView = view.city_country_text_view
+        cityEditText = view.city_edit_text
+        citySearchButton = view.city_search_button
+        favouriteButton = view.favourite_button
 
         setHasOptionsMenu(true)
 
