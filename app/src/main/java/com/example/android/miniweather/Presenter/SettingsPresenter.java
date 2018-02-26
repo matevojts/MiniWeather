@@ -23,12 +23,12 @@ public class SettingsPresenter {
     }
 
     public void saveTemperatureUnitToModel(Context context) {
-        TemperatureUnit temperatureUnit = new TemperatureUnit();
+        TemperatureUnit temperatureUnit;
         if (getCurrentTemperatureUnit(context)
                 .equals(context.getString(R.string.settings_temperature_celsius_value))){
-            temperatureUnit.setTemperatureUnitToCelsius(true);
+            temperatureUnit = new TemperatureUnit(true);
         } else {
-            temperatureUnit.setTemperatureUnitToCelsius(false);
+            temperatureUnit = new TemperatureUnit(false);
         }
         weatherViewContract.saveCurrentTemperature(temperatureUnit);
     }
