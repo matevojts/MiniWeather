@@ -41,8 +41,8 @@ public class SettingsPresenter {
     }
 
     public void saveFavouriteCityModel(Context context) {
-        FavouriteCityModel favouriteCityModel = new FavouriteCityModel();
-        favouriteCityModel.setFavouriteCity(getCurrentFavouriteCity(context));
+        FavouriteCityModel favouriteCityModel =
+                new FavouriteCityModel(getCurrentFavouriteCity(context));
         weatherViewContract.saveCurrentFavouriteCity(favouriteCityModel);
     }
 
