@@ -22,14 +22,14 @@ import retrofit2.Response
 
 class WeatherViewFragment : Fragment(), WeatherViewContract {
 
-    internal lateinit var cityCountryTextView: TextView
-    internal lateinit var cityEditText: EditText
-    internal lateinit var citySearchButton: Button
-    internal lateinit var favouriteButton: ImageButton
+    private lateinit var cityCountryTextView: TextView
+    private lateinit var cityEditText: EditText
+    private lateinit var citySearchButton: Button
+    private lateinit var favouriteButton: ImageButton
     internal lateinit var view: View
-    internal lateinit var cityName: String
-    internal var forecast: Forecast? = null
-    private var recyclerView: RecyclerView? = null
+    private lateinit var cityName: String
+    private var forecast: Forecast? = null
+    private lateinit var recyclerView: RecyclerView
     private var foreCastDayAdapter: ForeCastDayAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var temperatureUnitModel: TemperatureUnit? = null
@@ -44,8 +44,8 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
     private fun init() {
         layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         recyclerView = view.recycleview
-        recyclerView!!.setHasFixedSize(true)
-        recyclerView!!.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = layoutManager
 
         cityCountryTextView = view.city_country_text_view
         cityEditText = view.city_edit_text
@@ -54,7 +54,7 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
 
         setHasOptionsMenu(true)
 
-        val presenter = WeatherPresenter(this)
+        val weatherPresenter = WeatherPresenter(this)
         val settingsPresenter = SettingsPresenter(this)
         settingsPresenter.saveTemperatureUnitToModel(activity)
         settingsPresenter.saveFavouriteCityModel(activity)
@@ -71,7 +71,7 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
                 }
 
                 KeyboardUtils.hideKeyboard(view, activity)
-                presenter.getWeatherData(cityName)
+                weatherPresenter.getWeatherData(cityName)
                 cityEditText.setText("")
             }
         }
@@ -82,7 +82,7 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
                 cityCountryTextView.text = ""
             }
             KeyboardUtils.hideKeyboard(view, activity)
-            presenter.getWeatherData(favouriteCityModel!!.favouriteCity)
+            weatherPresenter.getWeatherData(favouriteCityModel!!.favouriteCity)
             cityEditText.setText("")
         }
 
@@ -103,7 +103,7 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
                 forecast!!.forecastday,
                 activity.applicationContext,
                 temperatureUnitModel!!)
-        recyclerView!!.adapter = foreCastDayAdapter
+        recyclerView.adapter = foreCastDayAdapter
         foreCastDayAdapter!!.notifyDataSetChanged()
 
     }
