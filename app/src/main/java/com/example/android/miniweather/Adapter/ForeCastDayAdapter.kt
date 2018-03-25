@@ -16,7 +16,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-//TODO ez így jól van tördelve?
 class ForeCastDayAdapter(val forecasts: List<Forecastday>,
                          val context: Context,
                          val temperatureUnitModel: TemperatureUnit)
@@ -63,9 +62,7 @@ class ForeCastDayAdapter(val forecasts: List<Forecastday>,
                 .into(holder.weatherConditionImageView)
     }
 
-    override fun getItemCount(): Int {
-        return forecasts.size
-    }
+    override fun getItemCount() = forecasts.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
