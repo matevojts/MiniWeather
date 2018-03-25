@@ -95,7 +95,6 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
 
         foreCastDayAdapter = ForeCastDayAdapter(
                 cityWeather!!.forecast.forecastday,
-                activity.applicationContext,
                 temperatureUnitModel!!)
         recyclerView.adapter = foreCastDayAdapter
         foreCastDayAdapter!!.notifyDataSetChanged()
