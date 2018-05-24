@@ -3,9 +3,13 @@ package com.example.android.miniweather.View
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import com.example.android.miniweather.Adapter.ForeCastDayAdapter
 import com.example.android.miniweather.Manager.NavigationManager
 import com.example.android.miniweather.Models.CityWeather
@@ -16,39 +20,23 @@ import com.example.android.miniweather.Presenter.WeatherPresenter
 import com.example.android.miniweather.Presenter.WeatherViewContract
 import com.example.android.miniweather.R
 import com.example.android.miniweather.Utils.KeyboardUtils
-import kotlinx.android.synthetic.main.weather_view_fragment.view.*
+import kotlinx.android.synthetic.main.weather_view_fragment.*
 import retrofit2.Response
 
 class WeatherViewFragment : Fragment(), WeatherViewContract {
 
-    private lateinit var cityCountryTextView: TextView
-    private lateinit var cityEditText: EditText
-    private lateinit var citySearchButton: Button
-    private lateinit var favouriteButton: ImageButton
-    internal lateinit var view: View
-    private lateinit var recyclerView: RecyclerView
     private var foreCastDayAdapter: ForeCastDayAdapter? = null
-    private var layoutManager: RecyclerView.LayoutManager? = null
     private var temperatureUnitModel: TemperatureUnit? = null
     private var favouriteCityModel: FavouriteCityModel? = null
     private var cityWeather: CityWeather? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.weather_view_fragment, container, false)
-        init()
-        return view
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+            inflater.inflate(R.layout.weather_view_fragment, container, false)!!
 
-    private fun init() {
-        layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        recyclerView = view.recycleview
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = layoutManager
 
-        cityCountryTextView = view.city_country_text_view
-        cityEditText = view.city_edit_text
-        citySearchButton = view.city_search_button
-        favouriteButton = view.favourite_button
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        recycleview.setHasFixedSize(true)
+        recycleview.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         setHasOptionsMenu(true)
 
@@ -58,15 +46,14 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
         settingsPresenter.saveFavouriteCityModel(activity)
 
 
-        citySearchButton.setOnClickListener { view ->
-            val cityName = cityEditText.text.toString()
+        city_search_button.setOnClickListener { view ->
+            val cityName = city_edit_text.text.toString()
 
-            if (!cityName.matches("".toRegex())) {
-
-                cityCountryTextView.text = ""
+            if (cityName.isNotEmpty()) {
+                city_country_text_view.text = ""
                 KeyboardUtils.hideKeyboard(view, activity)
                 weatherPresenter.getWeatherData(cityName)
-                cityEditText.setText("")
+                city_edit_text.setText("")
             } else {
                 Toast.makeText(activity.applicationContext,
                         resources.getString(R.string.city_edittext_empty_message),
@@ -74,20 +61,19 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
             }
         }
 
-        favouriteButton.setOnClickListener { view ->
+        favourite_button.setOnClickListener { view ->
 
-            cityCountryTextView.text = ""
+            city_country_text_view.text = ""
             KeyboardUtils.hideKeyboard(view, activity)
             weatherPresenter.getWeatherData(favouriteCityModel!!.favouriteCity)
-            cityEditText.setText("")
+            city_edit_text.setText("")
         }
-
     }
 
     override fun show(response: Response<CityWeather>) {
         cityWeather = response.body()
 
-        cityCountryTextView.text = getString(R.string.city_country,
+        city_country_text_view.text = getString(R.string.city_country,
                 cityWeather!!.location.name,
                 cityWeather!!.location.country)
 
@@ -96,7 +82,7 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
         foreCastDayAdapter = ForeCastDayAdapter(
                 cityWeather!!.forecast.forecastday,
                 temperatureUnitModel!!)
-        recyclerView.adapter = foreCastDayAdapter
+        recycleview.adapter = foreCastDayAdapter
         foreCastDayAdapter!!.notifyDataSetChanged()
 
     }
@@ -119,11 +105,11 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
+        return if (item.itemId == R.id.action_settings) {
             NavigationManager.moveToScreen(fragmentManager, SettingsFragment())
-            return true
+            true
         } else {
-            return false
+            false
         }
     }
 }
