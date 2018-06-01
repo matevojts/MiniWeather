@@ -1,8 +1,8 @@
-package com.example.android.miniweather.Presenter
+package com.example.android.miniweather.presenter
 
-import com.example.android.miniweather.Models.CityWeather
-import com.example.android.miniweather.Network.WeatherService
-import com.example.android.miniweather.View.WeatherViewFragment
+import com.example.android.miniweather.model.CityWeather
+import com.example.android.miniweather.network.WeatherService
+import com.example.android.miniweather.ui.WeatherViewFragment
 
 import retrofit2.Call
 import retrofit2.Callback

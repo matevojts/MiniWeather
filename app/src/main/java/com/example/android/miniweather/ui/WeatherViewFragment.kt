@@ -1,4 +1,4 @@
-package com.example.android.miniweather.View
+package com.example.android.miniweather.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -12,14 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.example.android.miniweather.Adapter.ForeCastDayAdapter
-import com.example.android.miniweather.Manager.NavigationManager
-import com.example.android.miniweather.Models.CityWeather
-import com.example.android.miniweather.Models.FavouriteCityModel
-import com.example.android.miniweather.Models.TemperatureUnit
-import com.example.android.miniweather.Presenter.SettingsPresenter
-import com.example.android.miniweather.Presenter.WeatherPresenter
-import com.example.android.miniweather.Presenter.WeatherViewContract
+import com.example.android.miniweather.ui.adapter.ForeCastDayAdapter
+import com.example.android.miniweather.NavigationManager
+import com.example.android.miniweather.model.CityWeather
+import com.example.android.miniweather.model.FavouriteCityModel
+import com.example.android.miniweather.model.TemperatureUnit
+import com.example.android.miniweather.presenter.SettingsPresenter
+import com.example.android.miniweather.presenter.WeatherPresenter
+import com.example.android.miniweather.presenter.WeatherViewContract
 import com.example.android.miniweather.R
 import kotlinx.android.synthetic.main.weather_view_fragment.*
 

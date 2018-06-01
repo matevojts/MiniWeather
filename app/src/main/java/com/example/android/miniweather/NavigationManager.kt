@@ -1,4 +1,4 @@
-package com.example.android.miniweather.Manager
+package com.example.android.miniweather
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

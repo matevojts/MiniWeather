@@ -1,11 +1,11 @@
-package com.example.android.miniweather.Adapter
+package com.example.android.miniweather.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.android.miniweather.Models.Forecastday
-import com.example.android.miniweather.Models.TemperatureUnit
+import com.example.android.miniweather.model.Forecastday
+import com.example.android.miniweather.model.TemperatureUnit
 import com.example.android.miniweather.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.*
