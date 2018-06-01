@@ -6,7 +6,7 @@ import com.example.android.miniweather.Models.TemperatureUnit
 
 interface WeatherViewContract {
 
-    fun show(response: retrofit2.Response<CityWeather>)
+    fun show(cityWeather: CityWeather)
 
     fun error()
 

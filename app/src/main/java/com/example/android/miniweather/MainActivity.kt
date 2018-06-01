@@ -15,6 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayFragment() {
-        NavigationManager.moveToFirstScreen(fragmentManager, WeatherViewFragment())
+        NavigationManager.moveToFirstScreen(supportFragmentManager, WeatherViewFragment())
     }
 }

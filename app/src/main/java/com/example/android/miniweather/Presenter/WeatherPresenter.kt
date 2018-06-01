@@ -23,9 +23,10 @@ class WeatherPresenter(weatherViewFragment: WeatherViewFragment) {
         val weatherService = WeatherService()
 
         weatherService.service.getWeather(APIKEY, cityName, NUMBERS_OF_DAYS_REQUESTED).enqueue(object : Callback<CityWeather> {
+
             override fun onResponse(call: Call<CityWeather>, response: Response<CityWeather>) {
                 if (response.isSuccessful) {
-                    viewContract.show(response)
+                    viewContract.show(response.body()!!)
                 }
             }
 

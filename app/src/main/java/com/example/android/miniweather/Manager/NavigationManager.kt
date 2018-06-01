@@ -1,12 +1,7 @@
 package com.example.android.miniweather.Manager
 
-import android.app.Fragment
-import android.app.FragmentManager
-
-
-/**
- * Created by matev on 2017. 11. 30..
- */
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 
 object NavigationManager {
 
