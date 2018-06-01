@@ -1,11 +1,11 @@
-package com.example.android.miniweather.Presenter
+package com.example.android.miniweather.presenter
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.example.android.miniweather.Models.FavouriteCityModel
-import com.example.android.miniweather.Models.TemperatureUnit
+import com.example.android.miniweather.model.FavouriteCityModel
+import com.example.android.miniweather.model.TemperatureUnit
 import com.example.android.miniweather.R
-import com.example.android.miniweather.View.WeatherViewFragment
+import com.example.android.miniweather.ui.WeatherViewFragment
 
 class SettingsPresenter(weatherViewFragment: WeatherViewFragment) {
 

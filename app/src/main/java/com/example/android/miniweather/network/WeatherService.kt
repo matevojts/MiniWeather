@@ -1,4 +1,4 @@
-package com.example.android.miniweather.Network
+package com.example.android.miniweather.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

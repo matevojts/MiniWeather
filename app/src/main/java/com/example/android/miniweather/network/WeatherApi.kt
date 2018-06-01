@@ -1,6 +1,6 @@
-package com.example.android.miniweather.Network
+package com.example.android.miniweather.network
 
-import com.example.android.miniweather.Models.CityWeather
+import com.example.android.miniweather.model.CityWeather
 
 import retrofit2.Call
 import retrofit2.http.GET

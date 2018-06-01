@@ -1,4 +1,4 @@
-package com.example.android.miniweather.View
+package com.example.android.miniweather.ui
 
 import android.os.Bundle
 
