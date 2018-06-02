@@ -33,25 +33,25 @@ class ForeCastDayAdapter(val forecasts: List<Forecastday>, val temperatureUnitMo
                     .placeholder(R.drawable.ic_image_grey600_48dp)
                     .fit()
                     .centerCrop()
-                    .into(itemView.weather_condition_image_view)
-            itemView.sunrise_text_view.text = forecastday.astro.sunrise
-            itemView.sunset_text_view.text = forecastday.astro.sunset
+                    .into(itemView.conditionImageView)
+            itemView.sunRiseTextView.text = forecastday.astro.sunrise
+            itemView.sunSetTextView.text = forecastday.astro.sunset
 
             if (temperatureUnitModel.isCelsius) {
-                itemView.maxtemp_text_view.text =
+                itemView.maxTempTextView.text =
                         context.getString(R.string.temperature_in_celsius, forecastday.day.maxtempC)
-                itemView.mintemp_text_view.text =
+                itemView.minTempTextView.text =
                         context.getString(R.string.temperature_in_celsius, forecastday.day.mintempC)
             } else {
-                itemView.maxtemp_text_view.text =
+                itemView.maxTempTextView.text =
                         context.getString(R.string.temperature_in_fahrenheit, forecastday.day.maxtempF)
-                itemView.mintemp_text_view.text =
+                itemView.minTempTextView.text =
                         context.getString(R.string.temperature_in_fahrenheit, forecastday.day.mintempF)
             }
             //TODO: move dateformating to dto-domain.
             val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(forecastday.date)
             val dateWithDay = SimpleDateFormat("EEEE, yyyy-MM-dd", Locale.getDefault())
-            itemView.date_text_view.text = dateWithDay.format(date)
+            itemView.dateTextView.text = dateWithDay.format(date)
         }
     }
 }
