@@ -7,13 +7,12 @@ import com.example.android.miniweather.ui.WeatherViewFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private val weatherViewFragment = WeatherViewFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        displayFragment()
+        NavigationManager.moveToFirstScreen(supportFragmentManager, weatherViewFragment)
     }
 
-    private fun displayFragment() {
-        NavigationManager.moveToFirstScreen(supportFragmentManager, WeatherViewFragment())
-    }
 }

@@ -1,51 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    <LinearLayout
-        android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <EditText
+        android:id="@+id/cityEditText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/city"
+        android:inputType="textCapWords"
+        app:layout_constraintEnd_toStartOf="@+id/citySearchButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-        <EditText
-            android:id="@+id/city_edit_text"
-            android:layout_width="@dimen/basic_zero_dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/city"
-            android:inputType="textCapWords"
-            android:layout_weight="1"/>
+    <Button
+        android:id="@+id/citySearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/search"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="@+id/cityEditText"
+        app:layout_constraintEnd_toStartOf="@+id/favouriteButton"
+        app:layout_constraintTop_toTopOf="@+id/cityEditText"
+        />
 
-        <Button
-            android:id="@+id/city_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:textAllCaps="true"/>
-
-        <ImageButton
-            android:id="@+id/favourite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/star"
-            android:background="@null"/>
-
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/favouriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:src="@drawable/star"
+        app:layout_constraintBottom_toBottomOf="@+id/cityEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cityEditText"
+        />
 
     <TextView
-        android:id="@+id/city_country_text_view"
-        android:layout_width="match_parent"
+        android:id="@+id/labelTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
-        android:textSize="@dimen/value_font_size"/>
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityEditText"
+        />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
+        android:id="@+id/forecastRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelTextView"
+        />
 
-    </android.support.v7.widget.RecyclerView>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

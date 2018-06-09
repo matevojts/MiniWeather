@@ -9,11 +9,6 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="ValueTextView">
-        <item name="android:textSize">@dimen/value_font_size</item>
-        <item name="android:gravity">center</item>
-    </style>
-
     <style name="TemperatureText">
         <item name="android:gravity">center</item>
         <item name="android:padding">4dp</item>
