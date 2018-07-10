@@ -36,15 +36,15 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycleview.setHasFixedSize(true)
-        recycleview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        forecastRecyclerView.setHasFixedSize(true)
+        forecastRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         setHasOptionsMenu(true)
         settingsPresenter.saveTemperatureUnitToModel(context!!)
         settingsPresenter.saveFavouriteCityModel(context!!)
 
-        city_search_button.setOnClickListener {
-            val cityName = city_edit_text.text.toString()
+        citySearchButton.setOnClickListener {
+            val cityName = cityEditText.text.toString()
             if (cityName.isNotEmpty()) {
                 getWeather(cityName)
             } else {
@@ -52,24 +52,24 @@ class WeatherViewFragment : Fragment(), WeatherViewContract {
             }
         }
 
-        favourite_button.setOnClickListener {
+        favouriteButton.setOnClickListener {
             getWeather(favouriteCityModel!!.favouriteCity)
         }
     }
 
     private fun getWeather(cityName: String) {
-        city_country_text_view.text = ""
+        labelTextView.text = ""
         hideKeyboard()
         weatherPresenter.getWeatherData(cityName)
-        city_edit_text.setText("")
+        cityEditText.setText("")
     }
 
     override fun show(cityWeather: CityWeather) {
-        city_country_text_view.text =
+        labelTextView.text =
                 getString(R.string.city_country, cityWeather.location.name, cityWeather.location.country)
         // TODO: check after kotlin refactor, it's only temporary solution now (multiple adapter instantiation)
         foreCastDayAdapter = ForeCastDayAdapter(cityWeather.forecast.forecastday, temperatureUnitModel!!)
-        recycleview.adapter = foreCastDayAdapter
+        forecastRecyclerView.adapter = foreCastDayAdapter
         foreCastDayAdapter!!.notifyDataSetChanged()
     }
 

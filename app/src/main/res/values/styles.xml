@@ -9,9 +9,20 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="ValueTextView">
-        <item name="android:textSize">@dimen/value_font_size</item>
+    <style name="TemperatureText">
         <item name="android:gravity">center</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="TemperatureText.Max">
+        <item name="android:background">@drawable/background_max_temp</item>
+    </style>
+
+    <style name="TemperatureText.Min">
+        <item name="android:background">@drawable/background_min_temp</item>
+    </style>
+
 
 </resources>
