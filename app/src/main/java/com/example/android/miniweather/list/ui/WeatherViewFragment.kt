@@ -30,14 +30,8 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         forecastRecyclerView.setHasFixedSize(true)
         forecastRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setHasOptionsMenu(true)
-
-        citySearchButton.setOnClickListener {
-            getWeather()
-        }
-
-        favouriteButton.setOnClickListener {
-            getWeatherForDefaultCity()
-        }
+        citySearchButton.setOnClickListener { getWeather() }
+        favouriteButton.setOnClickListener { getWeatherForDefaultCity() }
     }
 
     private fun getWeather() {
@@ -98,6 +92,11 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     private fun hideKeyboard() {
         val inputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        forecastRecyclerView.adapter = null
     }
 
 }
