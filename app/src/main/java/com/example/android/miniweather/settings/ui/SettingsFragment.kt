@@ -1,4 +1,4 @@
-package com.example.android.miniweather.ui
+package com.example.android.miniweather.settings.ui
 
 import android.os.Bundle
 
@@ -13,7 +13,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChan
         addPreferencesFromResource(R.xml.settings_main)
 
         val favouriteCity = findPreference(getString(R.string.settings_favourite_city_key))
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(favouriteCity.context)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         favouriteCity.onPreferenceChangeListener = this
         onPreferenceChange(favouriteCity, sharedPreferences.getString(favouriteCity.key, ""))
     }
