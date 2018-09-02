@@ -13,10 +13,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.android.miniweather.R
+import com.example.android.miniweather.hide
 import com.example.android.miniweather.list.model.CityWeather
 import com.example.android.miniweather.list.presenter.WeatherContract
 import com.example.android.miniweather.list.presenter.WeatherPresenter
 import com.example.android.miniweather.settings.model.TemperatureUnit
+import com.example.android.miniweather.show
 import kotlinx.android.synthetic.main.weather_view_fragment.*
 
 class WeatherViewFragment : Fragment(), WeatherContract.View {
@@ -35,13 +37,14 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     }
 
     private fun getWeather() {
-        val cityName = cityEditText.text.toString()
-        if (cityName.isNotBlank()) {
-            labelTextView.text = ""
-            hideKeyboard()
-            presenter.getWeatherForCity(cityName)
-        } else {
-            Toast.makeText(context, resources.getString(R.string.city_edittext_empty_message), Toast.LENGTH_LONG).show()
+        cityEditText.text.toString().apply {
+            if (this.isNotBlank()) {
+                labelTextView.text = ""
+                hideKeyboard()
+                presenter.getWeatherForCity(this)
+            } else {
+                Toast.makeText(context, resources.getString(R.string.city_edittext_empty_message), Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -68,11 +71,11 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     }
 
     override fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        progressBar.show()
     }
 
     override fun hideLoading() {
-        progressBar.visibility = View.GONE
+        progressBar.hide()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -84,9 +87,7 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         return if (item.itemId == R.id.action_settings) {
             presenter.openSettings()
             true
-        } else {
-            false
-        }
+        } else false
     }
 
     private fun hideKeyboard() {
