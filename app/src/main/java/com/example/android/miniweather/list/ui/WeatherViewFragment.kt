@@ -22,7 +22,7 @@ import com.example.android.miniweather.show
 import kotlinx.android.synthetic.main.weather_view_fragment.*
 
 class WeatherViewFragment : Fragment(), WeatherContract.View {
-    private var foreCastDayAdapter: ForeCastDayAdapter? = null
+    private var foreCastDayAdapter = ForeCastDayAdapter()
     private val presenter = WeatherPresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
@@ -31,6 +31,7 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         forecastRecyclerView.setHasFixedSize(true)
         forecastRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        forecastRecyclerView.adapter = foreCastDayAdapter
         setHasOptionsMenu(true)
         citySearchButton.setOnClickListener { getWeather() }
         favouriteButton.setOnClickListener { getWeatherForDefaultCity() }
@@ -60,10 +61,8 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
                 cityWeather.location.name,
                 cityWeather.location.country
         )
-        // TODO: check after kotlin refactor, it's only temporary solution now (multiple adapter instantiation) and provide TempUnit
-        foreCastDayAdapter = ForeCastDayAdapter(cityWeather.forecast.forecastday, TemperatureUnit(true))
-        forecastRecyclerView.adapter = foreCastDayAdapter
-        foreCastDayAdapter!!.notifyDataSetChanged()
+        foreCastDayAdapter.forecasts = cityWeather.forecast.forecastday
+       // foreCastDayAdapter.isCelsius = temperatureUnitModel.isCelsius
     }
 
     override fun error() {

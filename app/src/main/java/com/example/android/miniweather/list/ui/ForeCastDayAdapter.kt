@@ -5,15 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.android.miniweather.list.model.Forecastday
-import com.example.android.miniweather.settings.model.TemperatureUnit
 import com.example.android.miniweather.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ForeCastDayAdapter(val forecasts: List<Forecastday>, val temperatureUnitModel: TemperatureUnit)
-    : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>() {
+class ForeCastDayAdapter : RecyclerView.Adapter<ForeCastDayAdapter.ViewHolder>() {
+
+    var forecasts: List<Forecastday> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var isCelsius: Boolean = true
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -21,13 +31,13 @@ class ForeCastDayAdapter(val forecasts: List<Forecastday>, val temperatureUnitMo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val actualForecastday = forecasts[position]
-        holder.bind(actualForecastday, temperatureUnitModel)
+        holder.bind(actualForecastday, isCelsius)
     }
 
     override fun getItemCount() = forecasts.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(forecastday: Forecastday, temperatureUnitModel: TemperatureUnit) = with(itemView){
+        fun bind(forecastday: Forecastday, isCelsius: Boolean) = with(itemView) {
             Picasso.with(itemView.context)
                     .load(forecastday.day.condition.iconURL)
                     .placeholder(R.drawable.ic_image_grey600_48dp)
@@ -37,7 +47,7 @@ class ForeCastDayAdapter(val forecasts: List<Forecastday>, val temperatureUnitMo
             itemView.sunRiseTextView.text = forecastday.astro.sunrise
             itemView.sunSetTextView.text = forecastday.astro.sunset
 
-            if (temperatureUnitModel.isCelsius) {
+            if (isCelsius) {
                 itemView.maxTempTextView.text =
                         context.getString(R.string.temperature_in_celsius, forecastday.day.maxtempC)
                 itemView.minTempTextView.text =

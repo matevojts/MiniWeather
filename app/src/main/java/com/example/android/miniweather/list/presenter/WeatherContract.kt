@@ -1,8 +1,6 @@
 package com.example.android.miniweather.list.presenter
 
 import com.example.android.miniweather.list.model.CityWeather
-import com.example.android.miniweather.settings.model.FavouriteCityModel
-import com.example.android.miniweather.settings.model.TemperatureUnit
 
 interface WeatherContract {
 
