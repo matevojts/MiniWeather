@@ -2,7 +2,6 @@ package com.example.android.miniweather
 
 import android.view.View
 
-
 fun View.hide() {
     this.visibility = View.GONE
 }

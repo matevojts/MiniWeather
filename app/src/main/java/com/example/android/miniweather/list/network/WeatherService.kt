@@ -10,10 +10,10 @@ object WeatherService {
 
     fun create(): WeatherApi {
         val retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl(baseUrl)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         return retrofit.create(WeatherApi::class.java)
     }
 }

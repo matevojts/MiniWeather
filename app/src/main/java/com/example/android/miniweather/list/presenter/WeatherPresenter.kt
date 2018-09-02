@@ -13,36 +13,36 @@ class WeatherPresenter(private val weatherView: WeatherContract.View) : WeatherC
     override fun getWeatherForCity(cityName: String) {
         weatherView.showLoading()
         weatherService.getWeather(apiKey, cityName, forecastDaysRequested)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { cityWeather ->
-                            weatherView.hideLoading()
-                            weatherView.showWeather(cityWeather)
-                        },
-                        { _ ->
-                            weatherView.hideLoading()
-                            weatherView.error()
-                        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { cityWeather ->
+                    weatherView.hideLoading()
+                    weatherView.showWeather(cityWeather)
+                },
+                { _ ->
+                    weatherView.hideLoading()
+                    weatherView.error()
+                }
 
-                )
+            )
     }
 
     override fun getWeatherForDefaultCity() {
         weatherView.showLoading()
         weatherService.getWeather(apiKey, "Boston", forecastDaysRequested)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { cityWeather ->
-                            weatherView.hideLoading()
-                            weatherView.showWeather(cityWeather)
-                        },
-                        { _ ->
-                            weatherView.hideLoading()
-                            weatherView.error()
-                        }
-                )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { cityWeather ->
+                    weatherView.hideLoading()
+                    weatherView.showWeather(cityWeather)
+                },
+                { _ ->
+                    weatherView.hideLoading()
+                    weatherView.error()
+                }
+            )
     }
 
     override fun openSettings() {

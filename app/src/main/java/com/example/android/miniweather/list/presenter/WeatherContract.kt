@@ -11,7 +11,7 @@ interface WeatherContract {
         fun error()
     }
 
-    interface UserActions{
+    interface UserActions {
         fun getWeatherForCity(cityName: String)
         fun getWeatherForDefaultCity()
         fun openSettings()

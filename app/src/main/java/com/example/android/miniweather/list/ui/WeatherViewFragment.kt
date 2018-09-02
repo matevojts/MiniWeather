@@ -17,7 +17,6 @@ import com.example.android.miniweather.hide
 import com.example.android.miniweather.list.model.CityWeather
 import com.example.android.miniweather.list.presenter.WeatherContract
 import com.example.android.miniweather.list.presenter.WeatherPresenter
-import com.example.android.miniweather.settings.model.TemperatureUnit
 import com.example.android.miniweather.show
 import kotlinx.android.synthetic.main.weather_view_fragment.*
 
@@ -25,12 +24,16 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     private var foreCastDayAdapter = ForeCastDayAdapter()
     private val presenter = WeatherPresenter(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater.inflate(R.layout.weather_view_fragment, container, false)!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = inflater.inflate(R.layout.weather_view_fragment, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         forecastRecyclerView.setHasFixedSize(true)
-        forecastRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        forecastRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         forecastRecyclerView.adapter = foreCastDayAdapter
         setHasOptionsMenu(true)
         citySearchButton.setOnClickListener { getWeather() }
@@ -44,7 +47,11 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
                 hideKeyboard()
                 presenter.getWeatherForCity(this)
             } else {
-                Toast.makeText(context, resources.getString(R.string.city_edittext_empty_message), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    context!!.getString(R.string.city_edittext_empty_message),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -57,16 +64,20 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
 
     override fun showWeather(cityWeather: CityWeather) {
         cityEditText.setText("")
-        labelTextView.text = getString(R.string.city_country,
-                cityWeather.location.name,
-                cityWeather.location.country
+        labelTextView.text = getString(
+            R.string.city_country,
+            cityWeather.location.name,
+            cityWeather.location.country
         )
         foreCastDayAdapter.forecasts = cityWeather.forecast.forecastday
-       // foreCastDayAdapter.isCelsius = temperatureUnitModel.isCelsius
+        // foreCastDayAdapter.isCelsius = temperatureUnitModel.isCelsius
     }
 
     override fun error() {
-        Toast.makeText(context!!, resources.getString(R.string.api_call_failure_message), Toast.LENGTH_LONG).show()
+        Toast.makeText(context!!,
+            context!!.getString(R.string.api_call_failure_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun showLoading() {
@@ -90,7 +101,8 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
