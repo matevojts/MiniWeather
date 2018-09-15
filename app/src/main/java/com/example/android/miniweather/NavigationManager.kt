@@ -8,15 +8,15 @@ object NavigationManager {
     @JvmStatic
     fun moveToScreen(fragmentManager: FragmentManager, fragment: Fragment) {
         fragmentManager.beginTransaction()
-                .replace(android.R.id.content, fragment)
-                .addToBackStack(null)
-                .commit()
+            .replace(android.R.id.content, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     @JvmStatic
     fun moveToFirstScreen(fragmentManager: FragmentManager, fragment: Fragment) {
         fragmentManager.beginTransaction()
-                .replace(android.R.id.content, fragment)
-                .commit()
+            .replace(android.R.id.content, fragment)
+            .commit()
     }
 }
