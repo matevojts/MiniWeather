@@ -1,4 +1,4 @@
-package com.example.android.miniweather.list.ui
+package hu.matevojts.android.miniweather.list.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -12,12 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.example.android.miniweather.R
-import com.example.android.miniweather.hide
-import com.example.android.miniweather.list.model.CityWeather
-import com.example.android.miniweather.list.presenter.WeatherContract
-import com.example.android.miniweather.list.presenter.WeatherPresenter
-import com.example.android.miniweather.show
+import hu.matevojts.android.miniweather.R
+import hu.matevojts.android.miniweather.hide
+import hu.matevojts.android.miniweather.list.model.CityWeather
+import hu.matevojts.android.miniweather.list.presenter.WeatherContract
+import hu.matevojts.android.miniweather.list.presenter.WeatherPresenter
+import hu.matevojts.android.miniweather.show
 import kotlinx.android.synthetic.main.weather_view_fragment.*
 
 class WeatherViewFragment : Fragment(), WeatherContract.View {

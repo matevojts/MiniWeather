@@ -1,6 +1,6 @@
-package com.example.android.miniweather.list.network
+package hu.matevojts.android.miniweather.list.network
 
-import com.example.android.miniweather.list.model.CityWeather
+import hu.matevojts.android.miniweather.list.model.CityWeather
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

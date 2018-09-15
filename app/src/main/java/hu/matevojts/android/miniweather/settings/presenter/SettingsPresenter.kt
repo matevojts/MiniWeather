@@ -1,8 +1,8 @@
-package com.example.android.miniweather.settings.presenter
+package hu.matevojts.android.miniweather.settings.presenter
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.example.android.miniweather.R
+import hu.matevojts.android.miniweather.R
 
 class SettingsPresenter() {
 

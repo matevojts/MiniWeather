@@ -1,6 +1,6 @@
-package com.example.android.miniweather.list.presenter
+package hu.matevojts.android.miniweather.list.presenter
 
-import com.example.android.miniweather.list.model.CityWeather
+import hu.matevojts.android.miniweather.list.model.CityWeather
 
 interface WeatherContract {
 

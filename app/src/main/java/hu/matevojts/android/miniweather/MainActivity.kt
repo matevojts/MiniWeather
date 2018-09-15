@@ -1,8 +1,9 @@
-package com.example.android.miniweather
+package hu.matevojts.android.miniweather
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.android.miniweather.list.ui.WeatherViewFragment
+import hu.matevojts.android.miniweather.R
+import hu.matevojts.android.miniweather.list.ui.WeatherViewFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {

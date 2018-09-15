@@ -1,4 +1,4 @@
-package com.example.android.miniweather.list.network
+package hu.matevojts.android.miniweather.list.network
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
