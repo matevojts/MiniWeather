@@ -35,8 +35,9 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         forecastRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         forecastRecyclerView.adapter = foreCastDayAdapter
-        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
         citySearchButton.setOnClickListener { getWeather() }
+        favouriteButton.hide()
         favouriteButton.setOnClickListener { getWeatherForDefaultCity() }
     }
 
