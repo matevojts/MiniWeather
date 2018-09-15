@@ -1,11 +1,11 @@
-package com.example.android.miniweather.settings.ui
+package hu.matevojts.android.miniweather.settings.ui
 
 import android.os.Bundle
 
 import android.preference.PreferenceManager
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
-import com.example.android.miniweather.R
+import hu.matevojts.android.miniweather.R
 
 class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 

@@ -1,6 +1,6 @@
-package com.example.android.miniweather.list.presenter
+package hu.matevojts.android.miniweather.list.presenter
 
-import com.example.android.miniweather.list.network.WeatherService
+import hu.matevojts.android.miniweather.list.network.WeatherService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber

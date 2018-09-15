@@ -1,4 +1,4 @@
-package com.example.android.miniweather.list.model
+package hu.matevojts.android.miniweather.list.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

@@ -1,4 +1,4 @@
-package com.example.android.miniweather.settings.model
+package hu.matevojts.android.miniweather.settings.model
 
 /**
  * Created by matev on 2017. 11. 30..

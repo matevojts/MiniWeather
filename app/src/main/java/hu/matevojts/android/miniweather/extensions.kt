@@ -1,4 +1,4 @@
-package com.example.android.miniweather
+package hu.matevojts.android.miniweather
 
 import android.view.View
 

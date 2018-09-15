@@ -5,7 +5,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.example.android.miniweather"
+        applicationId "hu.matevojts.android.miniweather"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
