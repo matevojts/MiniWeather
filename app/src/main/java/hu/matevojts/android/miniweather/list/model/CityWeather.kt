@@ -35,6 +35,5 @@ data class Astro(
 )
 
 data class Condition(@SerializedName("icon") @Expose val icon: String) {
-    val iconURL: String
-        get() = "http:$icon"
+    val iconURL = "http:$icon"
 }
