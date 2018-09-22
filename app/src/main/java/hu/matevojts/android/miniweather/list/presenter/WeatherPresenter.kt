@@ -1,5 +1,6 @@
 package hu.matevojts.android.miniweather.list.presenter
 
+import hu.matevojts.android.miniweather.list.model.CityForeCast
 import hu.matevojts.android.miniweather.list.network.WeatherService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,12 +14,13 @@ class WeatherPresenter(private val weatherView: WeatherContract.View) : WeatherC
     override fun getWeatherForCity(cityName: String) {
         weatherView.showLoading()
         weatherService.getWeather(apiKey, cityName, forecastDaysRequested)
+            .map { CityForeCast(it, true) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { cityWeather ->
+                { cityForecast ->
                     weatherView.hideLoading()
-                    weatherView.showWeather(cityWeather)
+                    weatherView.showForecast(cityForecast)
                 },
                 { _ ->
                     weatherView.hideLoading()
@@ -29,20 +31,7 @@ class WeatherPresenter(private val weatherView: WeatherContract.View) : WeatherC
     }
 
     override fun getWeatherForDefaultCity() {
-        weatherView.showLoading()
-        weatherService.getWeather(apiKey, "Boston", forecastDaysRequested)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { cityWeather ->
-                    weatherView.hideLoading()
-                    weatherView.showWeather(cityWeather)
-                },
-                { _ ->
-                    weatherView.hideLoading()
-                    weatherView.error()
-                }
-            )
+        getWeatherForCity("Boston")
     }
 
     override fun openSettings() {

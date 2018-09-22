@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import hu.matevojts.android.miniweather.R
 import hu.matevojts.android.miniweather.hide
+import hu.matevojts.android.miniweather.list.model.CityForeCast
 import hu.matevojts.android.miniweather.list.model.CityWeather
 import hu.matevojts.android.miniweather.list.presenter.WeatherContract
 import hu.matevojts.android.miniweather.list.presenter.WeatherPresenter
@@ -63,15 +64,15 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         presenter.getWeatherForDefaultCity()
     }
 
-    override fun showWeather(cityWeather: CityWeather) {
+    override fun showForecast(cityForeCast: CityForeCast) {
         cityEditText.setText("")
         labelTextView.text = getString(
             R.string.city_country,
-            cityWeather.location.name,
-            cityWeather.location.country
+            cityForeCast.cityWeather.location.name,
+            cityForeCast.cityWeather.location.country
         )
-        foreCastDayAdapter.forecasts = cityWeather.forecast.forecastday
-        // foreCastDayAdapter.isCelsius = temperatureUnitModel.isCelsius
+        foreCastDayAdapter.forecasts = cityForeCast.cityWeather.forecast.forecastday
+        foreCastDayAdapter.isCelsius = cityForeCast.isCelsius
     }
 
     override fun error() {

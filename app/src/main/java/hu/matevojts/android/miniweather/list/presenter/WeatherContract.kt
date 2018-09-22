@@ -1,13 +1,13 @@
 package hu.matevojts.android.miniweather.list.presenter
 
-import hu.matevojts.android.miniweather.list.model.CityWeather
+import hu.matevojts.android.miniweather.list.model.CityForeCast
 
 interface WeatherContract {
 
     interface View {
         fun hideLoading()
         fun showLoading()
-        fun showWeather(cityWeather: CityWeather)
+        fun showForecast(cityForeCast: CityForeCast)
         fun error()
     }
 
