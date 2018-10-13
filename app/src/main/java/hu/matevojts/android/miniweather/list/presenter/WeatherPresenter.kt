@@ -1,12 +1,18 @@
 package hu.matevojts.android.miniweather.list.presenter
 
+import android.support.v4.app.FragmentManager
+import hu.matevojts.android.miniweather.NavigationManager
 import hu.matevojts.android.miniweather.list.model.CityForeCast
 import hu.matevojts.android.miniweather.list.network.WeatherService
+import hu.matevojts.android.miniweather.settings.ui.SettingsFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class WeatherPresenter(private val weatherView: WeatherContract.View) : WeatherContract.UserActions {
+class WeatherPresenter(
+    private val weatherView: WeatherContract.View,
+    private val fragmentManager: FragmentManager
+) : WeatherContract.UserActions {
     private val apiKey = "a648c3fd154342f1b3190352171310"
     private val forecastDaysRequested = 10
     private val weatherService by lazy { WeatherService.create() }
@@ -36,6 +42,6 @@ class WeatherPresenter(private val weatherView: WeatherContract.View) : WeatherC
 
     override fun openSettings() {
         Timber.d("Open Settings")
-//        NavigationManager.moveToScreen(fragmentManager, SettingsFragment())
+        NavigationManager.moveToScreen(fragmentManager, SettingsFragment())
     }
 }
