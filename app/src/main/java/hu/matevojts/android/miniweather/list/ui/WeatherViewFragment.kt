@@ -14,7 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import hu.matevojts.android.miniweather.R
 import hu.matevojts.android.miniweather.hide
-import hu.matevojts.android.miniweather.list.model.CityWeather
+import hu.matevojts.android.miniweather.list.model.CityForeCast
 import hu.matevojts.android.miniweather.list.presenter.WeatherContract
 import hu.matevojts.android.miniweather.list.presenter.WeatherPresenter
 import hu.matevojts.android.miniweather.show
@@ -22,7 +22,9 @@ import kotlinx.android.synthetic.main.weather_view_fragment.*
 
 class WeatherViewFragment : Fragment(), WeatherContract.View {
     private var foreCastDayAdapter = ForeCastDayAdapter()
-    private val presenter = WeatherPresenter(this)
+    private val presenter: WeatherPresenter by lazy {
+        WeatherPresenter(this, fragmentManager!!)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +37,7 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         forecastRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         forecastRecyclerView.adapter = foreCastDayAdapter
-//        setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         citySearchButton.setOnClickListener { getWeather() }
         favouriteButton.hide()
         favouriteButton.setOnClickListener { getWeatherForDefaultCity() }
@@ -63,15 +65,15 @@ class WeatherViewFragment : Fragment(), WeatherContract.View {
         presenter.getWeatherForDefaultCity()
     }
 
-    override fun showWeather(cityWeather: CityWeather) {
+    override fun showForecast(cityForeCast: CityForeCast) {
         cityEditText.setText("")
         labelTextView.text = getString(
             R.string.city_country,
-            cityWeather.location.name,
-            cityWeather.location.country
+            cityForeCast.cityWeather.location.name,
+            cityForeCast.cityWeather.location.country
         )
-        foreCastDayAdapter.forecasts = cityWeather.forecast.forecastday
-        // foreCastDayAdapter.isCelsius = temperatureUnitModel.isCelsius
+        foreCastDayAdapter.forecasts = cityForeCast.cityWeather.forecast.forecastday
+        foreCastDayAdapter.isCelsius = cityForeCast.isCelsius
     }
 
     override fun error() {
